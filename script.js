@@ -3,152 +3,150 @@
  * For Elakkya & Gowdham Raj's Wedding
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 1. Interactive Envelope Card Opener & YouTube Player Integration ---
-    const envelopeCover = document.getElementById('envelope-cover');
-    const mainContent = document.getElementById('main-content');
-    const musicToggle = document.getElementById('music-toggle');
-    const toggleIcon = musicToggle.querySelector('i');
-    const tooltipText = document.querySelector('.music-tooltip');
-    
-    let isPlaying = false;
-    let ytPlayerReady = false;
+// Global Variables
+let player;
+let ytPlayerReady = false;
+let isPlaying = false;
+let envelopeCover, mainContent, musicToggle, toggleIcon, tooltipText;
 
-    // Load YouTube Iframe API dynamically
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// Load YouTube Iframe API dynamically on the global scope
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // Global YouTube API Ready Callback
-    window.onYouTubeIframeAPIReady = function() {
-        window.player = new YT.Player('youtube-player', {
-            videoId: 'wjr275nhYiw', // Vikram Marriage BGM
-            playerVars: {
-                'autoplay': 1,      // try to play immediately
-                'controls': 0,      // hide controls
-                'loop': 1,          // loop track
-                'playlist': 'wjr275nhYiw', // required for loop
-                'mute': 0,          // unmute
-                'playsinline': 1
-            },
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-    };
-
-    function onPlayerReady(event) {
-        ytPlayerReady = true;
-        // set sound volume slightly lower for pleasant ambience
-        window.player.setVolume(35);
-        
-        // Attempt autoplay immediately (some browser policies may allow it depending on site score)
-        if (isPlaying) {
-            window.player.playVideo();
+// Global YouTube API Ready Callback
+window.onYouTubeIframeAPIReady = function() {
+    player = new YT.Player('youtube-player', {
+        videoId: 'wjr275nhYiw', // Vikram Marriage BGM
+        playerVars: {
+            'autoplay': 1,      // try to play immediately
+            'controls': 0,      // hide controls
+            'loop': 1,          // loop track
+            'playlist': 'wjr275nhYiw', // required for loop
+            'mute': 0,          // unmute
+            'playsinline': 1
+        },
+        events: {
+            'onReady': onPlayerReady
         }
-    }
+    });
+};
 
-    function toggleMusic() {
-        if (isPlaying) {
-            if (ytPlayerReady && window.player && typeof window.player.pauseVideo === 'function') {
-                window.player.pauseVideo();
-            }
-            musicToggle.classList.remove('playing');
-            toggleIcon.className = 'fas fa-music';
-            tooltipText.textContent = 'திருமண இசையை இயக்கு';
-            isPlaying = false;
-        } else {
-            if (ytPlayerReady && window.player && typeof window.player.playVideo === 'function') {
-                window.player.playVideo();
-            }
-            musicToggle.classList.add('playing');
-            toggleIcon.className = 'fas fa-pause';
-            tooltipText.textContent = 'இசையை நிறுத்து';
+function onPlayerReady(event) {
+    ytPlayerReady = true;
+    player.setVolume(35);
+    if (isPlaying) {
+        player.playVideo();
+    }
+}
+
+function playAudio() {
+    isPlaying = true;
+    if (ytPlayerReady && player && typeof player.playVideo === 'function') {
+        player.playVideo();
+        if (musicToggle) musicToggle.classList.add('playing');
+        if (toggleIcon) toggleIcon.className = 'fas fa-pause';
+        if (tooltipText) tooltipText.textContent = 'இசையை நிறுத்து';
+    }
+    
+    // Fallback listeners for interaction due to browser autoplay policies
+    const playOnInteract = () => {
+        if (ytPlayerReady && player && typeof player.playVideo === 'function') {
+            player.playVideo();
+            if (musicToggle) musicToggle.classList.add('playing');
+            if (toggleIcon) toggleIcon.className = 'fas fa-pause';
+            if (tooltipText) tooltipText.textContent = 'இசையை நிறுத்து';
             isPlaying = true;
+            cleanupListeners();
+        }
+    };
+    
+    const cleanupListeners = () => {
+        window.removeEventListener('click', playOnInteract);
+        window.removeEventListener('scroll', playOnInteract);
+        window.removeEventListener('touchstart', playOnInteract);
+    };
+    
+    window.addEventListener('click', playOnInteract, { passive: true });
+    window.addEventListener('scroll', playOnInteract, { passive: true });
+    window.addEventListener('touchstart', playOnInteract, { passive: true });
+}
+
+function toggleMusic() {
+    if (isPlaying) {
+        if (ytPlayerReady && player && typeof player.pauseVideo === 'function') {
+            player.pauseVideo();
+        }
+        if (musicToggle) musicToggle.classList.remove('playing');
+        if (toggleIcon) toggleIcon.className = 'fas fa-music';
+        if (tooltipText) tooltipText.textContent = 'திருமண இசையை இயக்கு';
+        isPlaying = false;
+    } else {
+        if (ytPlayerReady && player && typeof player.playVideo === 'function') {
+            player.playVideo();
+        }
+        if (musicToggle) musicToggle.classList.add('playing');
+        if (toggleIcon) toggleIcon.className = 'fas fa-pause';
+        if (tooltipText) tooltipText.textContent = 'இசையை நிறுத்து';
+        isPlaying = true;
+    }
+}
+
+function startCinematicTour() {
+    const sections = [
+        document.getElementById('forest-scene'),
+        document.getElementById('waterfall-scene'),
+        document.getElementById('sky-scene'),
+        document.getElementById('divine-scene')
+    ];
+    
+    let currentStep = 1; // Start moving to Chapter 2 (waterfall) since we are already on Chapter 1
+    
+    function nextStep() {
+        if (currentStep < sections.length) {
+            const target = sections[currentStep];
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            currentStep++;
+            // Wait 5.5 seconds per scene, then go to next
+            setTimeout(nextStep, 5500);
         }
     }
+    
+    nextStep();
+}
 
-    musicToggle.addEventListener('click', toggleMusic);
-
-    // Auto-Opening and Cinematic Walkthrough
+// --- DOM Content Initialization ---
+function initWeddingApp() {
+    envelopeCover = document.getElementById('envelope-cover');
+    mainContent = document.getElementById('main-content');
+    musicToggle = document.getElementById('music-toggle');
+    if (musicToggle) {
+        toggleIcon = musicToggle.querySelector('i');
+        tooltipText = document.querySelector('.music-tooltip');
+        musicToggle.addEventListener('click', toggleMusic);
+    }
+    
+    // Auto-Opening and Walkthrough Timer
     setTimeout(() => {
-        // Automatically open the envelope card
         if (envelopeCover) envelopeCover.classList.add('open');
         if (mainContent) {
             mainContent.classList.remove('main-hidden');
             mainContent.classList.add('main-visible');
         }
         
-        // Try playing the Vikram Wedding BGM immediately
+        // Start background music
         playAudio();
         
         // Start automatic narrative walkthrough
         setTimeout(startCinematicTour, 3000);
-    }, 2000); // 2 seconds to view envelope cover before opening
-
-    function playAudio() {
-        isPlaying = true;
-        if (ytPlayerReady && window.player && typeof window.player.playVideo === 'function') {
-            window.player.playVideo();
-            musicToggle.classList.add('playing');
-            toggleIcon.className = 'fas fa-pause';
-            tooltipText.textContent = 'இசையை நிறுத்து';
-        }
-        
-        // Fallback: start video sound on first scroll, touch, or click due to browser autoplay policies
-        const playOnInteract = () => {
-            if (ytPlayerReady && window.player && typeof window.player.playVideo === 'function') {
-                window.player.playVideo();
-                musicToggle.classList.add('playing');
-                toggleIcon.className = 'fas fa-pause';
-                tooltipText.textContent = 'இசையை நிறுத்து';
-                isPlaying = true;
-                cleanupListeners();
-            }
-        };
-        
-        const cleanupListeners = () => {
-            window.removeEventListener('click', playOnInteract);
-            window.removeEventListener('scroll', playOnInteract);
-            window.removeEventListener('touchstart', playOnInteract);
-        };
-        
-        window.addEventListener('click', playOnInteract, { passive: true });
-        window.addEventListener('scroll', playOnInteract, { passive: true });
-        window.addEventListener('touchstart', playOnInteract, { passive: true });
-    }
-
-    function startCinematicTour() {
-        const sections = [
-            document.getElementById('forest-scene'),
-            document.getElementById('waterfall-scene'),
-            document.getElementById('sky-scene'),
-            document.getElementById('divine-scene')
-        ];
-        
-        let currentStep = 1; // Start moving to Chapter 2 (waterfall) since we are already on Chapter 1
-        
-        function nextStep() {
-            if (currentStep < sections.length) {
-                const target = sections[currentStep];
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                currentStep++;
-                // Wait 5.5 seconds per scene, then go to next
-                setTimeout(nextStep, 5500);
-            }
-        }
-        
-        nextStep();
-    }
-
-
+    }, 2000); // 2 seconds delay on load
 
     // --- 2. Unified Storyboard Canvas Animation Engine ---
     const canvas = document.getElementById('story-canvas');
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     
     let activeScene = 'forest'; // 'forest', 'waterfall', 'sky', 'blessings'
@@ -170,12 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 activeScene = entry.target.dataset.scene;
-                // Transition colors or trigger burst events when scene changes
                 console.log('Scene changed to: ', activeScene);
             }
         });
     }, {
-        threshold: 0.3, // trigger when 30% of the section is visible
+        threshold: 0.3,
         rootMargin: '0px 0px -10% 0px'
     });
 
@@ -202,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.type = Math.random() > 0.45 ? 'petal' : 'leaf';
             this.swaySpeed = Math.random() * 0.015 + 0.005;
             this.swayOffset = Math.random() * Math.PI * 2;
-            this.color = null; // Used for RSVP celebration burst
+            this.color = null;
         }
         update() {
             this.y += this.speedY;
@@ -258,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reset(prewarm = false) {
             this.x = Math.random() * canvasWidth;
             this.y = prewarm ? Math.random() * canvasHeight : -40;
-            this.vy = Math.random() * 5 + 10; // high speed falling
+            this.vy = Math.random() * 5 + 10;
             this.vx = Math.random() * 0.5 - 0.25;
             this.length = Math.random() * 20 + 15;
             this.width = Math.random() * 1.5 + 0.5;
@@ -267,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         update() {
             this.y += this.vy;
             this.x += this.vx;
-            this.vy += 0.25; // gravity pull
+            this.vy += 0.25;
             if (this.y >= canvasHeight - 20) {
                 createSplash(this.x, canvasHeight - 20);
                 this.reset();
@@ -368,7 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
     class Cloud {
         constructor() {
             this.reset();
-            // Scatter initially
             this.x = Math.random() * (canvasWidth + 400) - 200;
         }
         reset() {
@@ -406,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reset(prewarm = false) {
             this.x = Math.random() * canvasWidth;
             this.y = prewarm ? Math.random() * canvasHeight : canvasHeight + 20;
-            this.vy = -(Math.random() * 0.8 + 0.4); // rising up
+            this.vy = -(Math.random() * 0.8 + 0.4);
             this.vx = Math.random() * 0.6 - 0.3;
             this.size = Math.random() * 12 + 6;
             this.opacity = Math.random() * 0.4 + 0.2;
@@ -475,7 +471,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Main Cinematic Canvas Animation Loop ---
     function animateStoryboard() {
-        // Clear screen with a slight trailing frame to soften the waterfall movement
         ctx.fillStyle = 'rgba(15, 23, 42, 0.15)';
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
@@ -490,8 +485,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 d.update();
                 d.draw();
             });
-            
-            // Draw crashes
             for (let i = splashDrops.length - 1; i >= 0; i--) {
                 let s = splashDrops[i];
                 s.update();
@@ -501,7 +494,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     s.draw();
                 }
             }
-
             for (let i = mistDrops.length - 1; i >= 0; i--) {
                 let m = mistDrops[i];
                 m.update();
@@ -527,8 +519,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 b.update();
                 b.draw();
             });
-            
-            // Also sprinkle a few gentle flower petals in the divine section
             if (Math.random() > 0.96) {
                 forestParticles.push(new ForestParticle());
             }
@@ -546,11 +536,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     animateStoryboard();
 
-
     // --- 3. Countdown Timer ---
-    // Wedding Date: September 13th, 2026 ( Muhurtham Time: 09:00 AM IST )
     const weddingDate = new Date('September 13, 2026 09:00:00').getTime();
-
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
@@ -571,15 +558,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        daysEl.textContent = days.toString().padStart(2, '0');
-        hoursEl.textContent = hours.toString().padStart(2, '0');
-        minutesEl.textContent = minutes.toString().padStart(2, '0');
-        secondsEl.textContent = seconds.toString().padStart(2, '0');
+        if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
     }
 
     updateCountdown();
     const countdownInterval = setInterval(updateCountdown, 1000);
-
 
     // --- 4. Mobile Menu Navigation Toggle ---
     const menuToggle = document.getElementById('menu-toggle');
@@ -587,27 +573,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const allLinks = document.querySelectorAll('.nav-link');
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        navbar.classList.toggle('active');
-    });
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navbar.classList.toggle('active');
+        });
+    }
 
     allLinks.forEach(link => {
         link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            navbar.classList.remove('active');
+            if (navLinks) navLinks.classList.remove('active');
+            if (navbar) navbar.classList.remove('active');
         });
     });
 
-    // Sync navbar and active links on scroll
     window.addEventListener('scroll', () => {
+        if (!navbar) return;
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
 
-        // Highlight active link based on viewport
         let current = '';
         storyPanels.forEach(section => {
             const sectionTop = section.offsetTop;
@@ -623,7 +610,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
 
     // --- 5. Scroll Reveal animations ---
     const reveals = document.querySelectorAll('.scroll-reveal');
@@ -643,47 +629,54 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(reveal);
     });
 
-
     // --- 6. RSVP Mock Form Submission ---
     const rsvpForm = document.getElementById('rsvp-form');
     const rsvpSuccess = document.getElementById('rsvp-success');
 
-    rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    if (rsvpForm) {
+        rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        const name = document.getElementById('rsvp-name').value;
-        const attendance = document.querySelector('input[name="attendance"]:checked').value;
-        const guests = document.getElementById('rsvp-guests').value;
-        const message = document.getElementById('rsvp-message').value;
+            const name = document.getElementById('rsvp-name').value;
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            const guests = document.getElementById('rsvp-guests').value;
+            const message = document.getElementById('rsvp-message').value;
 
-        const rsvpData = {
-            name,
-            attendance,
-            guests,
-            message,
-            timestamp: new Date().toISOString()
-        };
+            const rsvpData = {
+                name,
+                attendance,
+                guests,
+                message,
+                timestamp: new Date().toISOString()
+            };
 
-        let submissions = JSON.parse(localStorage.getItem('wedding_rsvps') || '[]');
-        submissions.push(rsvpData);
-        localStorage.setItem('wedding_rsvps', JSON.stringify(submissions));
+            let submissions = JSON.parse(localStorage.getItem('wedding_rsvps') || '[]');
+            submissions.push(rsvpData);
+            localStorage.setItem('wedding_rsvps', JSON.stringify(submissions));
 
-        rsvpForm.classList.add('hidden');
-        rsvpSuccess.classList.remove('hidden');
+            rsvpForm.classList.add('hidden');
+            if (rsvpSuccess) rsvpSuccess.classList.remove('hidden');
 
-        // Confetti flower explosion burst!
-        celebrationSplurge();
-    });
+            celebrationSplurge();
+        });
+    }
 
     function celebrationSplurge() {
-        activeScene = 'blessings'; // switch to blessings scene to see petals
+        activeScene = 'blessings';
         for (let i = 0; i < 60; i++) {
             const p = new ForestParticle();
             p.y = canvasHeight + Math.random() * 100;
-            p.speedY = -(Math.random() * 5 + 3); // fly up
+            p.speedY = -(Math.random() * 5 + 3);
             p.speedX = Math.random() * 8 - 4;
-            p.color = `hsl(${Math.random() * 360}, 85%, 65%)`; // colorful flowers
+            p.color = `hsl(${Math.random() * 360}, 85%, 65%)`;
             forestParticles.push(p);
         }
     }
-});
+}
+
+// Ensure initWeddingApp runs regardless of document load timing
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWeddingApp);
+} else {
+    initWeddingApp();
+}
