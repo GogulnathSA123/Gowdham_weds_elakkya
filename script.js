@@ -38,19 +38,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
     musicToggle.addEventListener('click', toggleMusic);
 
-    openEnvelopeBtn.addEventListener('click', () => {
-        // Open envelope doors
-        envelopeCover.classList.add('open');
+    // Auto-Opening and Cinematic Walkthrough
+    setTimeout(() => {
+        // Automatically open the envelope card
+        if (envelopeCover) envelopeCover.classList.add('open');
+        if (mainContent) {
+            mainContent.classList.remove('main-hidden');
+            mainContent.classList.add('main-visible');
+        }
         
-        // Show main story content
-        mainContent.classList.remove('main-hidden');
-        mainContent.classList.add('main-visible');
+        // Try playing the Tamil wedding song immediately
+        playAudio();
         
-        // Trigger ambient music automatically (since user clicked the button)
-        setTimeout(() => {
-            if (!isPlaying) toggleMusic();
-        }, 300);
-    });
+        // Start automatic narrative tour through scenes
+        setTimeout(startCinematicTour, 3000);
+    }, 2000); // 2 seconds to view envelope cover before opening
+
+    function playAudio() {
+        if (!audio) return;
+        audio.play().then(() => {
+            musicToggle.classList.add('playing');
+            toggleIcon.className = 'fas fa-pause';
+            tooltipText.textContent = 'இசையை நிறுத்து';
+            isPlaying = true;
+        }).catch(err => {
+            console.log('Autoplay prevented. Music will play on first interaction.', err);
+            // Fallback: play on any scroll, touch, or click
+            const playOnInteract = () => {
+                audio.play().then(() => {
+                    musicToggle.classList.add('playing');
+                    toggleIcon.className = 'fas fa-pause';
+                    tooltipText.textContent = 'இசையை நிறுத்து';
+                    isPlaying = true;
+                    cleanupListeners();
+                }).catch(e => console.log('Audio start retry failed', e));
+            };
+            
+            const cleanupListeners = () => {
+                window.removeEventListener('click', playOnInteract);
+                window.removeEventListener('scroll', playOnInteract);
+                window.removeEventListener('touchstart', playOnInteract);
+            };
+            
+            window.addEventListener('click', playOnInteract, { passive: true });
+            window.addEventListener('scroll', playOnInteract, { passive: true });
+            window.addEventListener('touchstart', playOnInteract, { passive: true });
+        });
+    }
+
+    function startCinematicTour() {
+        const sections = [
+            document.getElementById('forest-scene'),
+            document.getElementById('waterfall-scene'),
+            document.getElementById('sky-scene'),
+            document.getElementById('divine-scene')
+        ];
+        
+        let currentStep = 1; // Start moving to Chapter 2 (waterfall) since we are already on Chapter 1
+        
+        function nextStep() {
+            if (currentStep < sections.length) {
+                const target = sections[currentStep];
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                currentStep++;
+                // Wait 5.5 seconds per scene, then go to next
+                setTimeout(nextStep, 5500);
+            }
+        }
+        
+        nextStep();
+    }
+
 
 
     // --- 2. Unified Storyboard Canvas Animation Engine ---
