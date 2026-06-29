@@ -54,7 +54,7 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 2; /* Move above panel overlays to be fully visible */
+    z-index: -1; /* Place behind layout for universal text visibility */
 }
 
 /* 1. Interactive Invitation Envelope Overlay */
