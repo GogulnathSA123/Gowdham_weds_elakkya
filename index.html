@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wedding website for Elakkya and Gowdham Raj. September 13th at Ponamaravathi, India. A poetic union of two hearts.">
+    <title>The Union of Elakkya & Gowdham Raj</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Canvas for Floating Gold Particles / Flower Petals -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Floating Background Music Player -->
+    <div class="music-player" id="music-player">
+        <button class="music-toggle" id="music-toggle" aria-label="Toggle Background Music">
+            <i class="fas fa-music"></i>
+            <span class="pulse-ring"></span>
+        </button>
+        <span class="music-tooltip">Play Wedding Melody</span>
+        <audio id="wedding-audio" loop preload="auto">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- Elegant Floating Navigation -->
+    <header class="navbar">
+        <div class="logo">E & G</div>
+        <nav class="nav-links">
+            <a href="#hero" class="nav-link active">Home</a>
+            <a href="#prelude" class="nav-link">The Poem</a>
+            <a href="#story" class="nav-link">Our Story</a>
+            <a href="#details" class="nav-link">The Gathering</a>
+            <a href="#rsvp" class="nav-link">RSVP</a>
+        </nav>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-content">
+            <div class="decorative-monogram scroll-reveal">E & G</div>
+            <p class="hero-subtitle scroll-reveal">With Joyful Hearts, We Invite You To Celebrate</p>
+            <h1 class="hero-names scroll-reveal">
+                <span class="name">Elakkya</span>
+                <span class="ampersand">&</span>
+                <span class="name">Gowdham Raj</span>
+            </h1>
+            <div class="divider scroll-reveal">
+                <span class="line"></span>
+                <span class="lotus"><i class="fa-solid fa-om"></i></span>
+                <span class="line"></span>
+            </div>
+            <p class="hero-date-venue scroll-reveal">
+                <span class="date"><i class="far fa-calendar-alt"></i> September 13th</span>
+                <span class="bullet">•</span>
+                <span class="venue"><i class="fas fa-map-marker-alt"></i> Ponamaravathi, India</span>
+            </p>
+            <div class="scroll-down-indicator">
+                <span>Scroll to Enter the Poem</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Prelude / Poem Section -->
+    <section id="prelude" class="poem-section">
+        <div class="section-container">
+            <h2 class="section-title text-center scroll-reveal">The Prelude</h2>
+            <div class="poem-container">
+                <div class="poem-stanza scroll-reveal">
+                    <p class="poem-line">In the quiet space where dreams collide,</p>
+                    <p class="poem-line">Two hearts found home, side by side.</p>
+                    <p class="poem-line">A canvas painted with stardust and grace,</p>
+                    <p class="poem-line">Now finds its anchor in love's embrace.</p>
+                </div>
+                
+                <div class="poem-stanza scroll-reveal">
+                    <p class="poem-line">Elakkya—a whisper of the morning breeze,</p>
+                    <p class="poem-line">A song of light that puts the mind at ease.</p>
+                    <p class="poem-line">With eyes reflecting the horizon's gleam,</p>
+                    <p class="poem-line">She walks as the keeper of a beautiful dream.</p>
+                </div>
+
+                <div class="poem-stanza scroll-reveal">
+                    <p class="poem-line">Gowdham Raj—the silent, steady shore,</p>
+                    <p class="poem-line">A gentle strength to lean on evermore.</p>
+                    <p class="poem-line">With steps of purpose and a heart so true,</p>
+                    <p class="poem-line">His path was drawn to wind its way to you.</p>
+                </div>
+
+                <div class="poem-stanza scroll-reveal">
+                    <p class="poem-line">In Ponamaravathi, where the old winds blow,</p>
+                    <p class="poem-line">And fields of golden warmth softly glow,</p>
+                    <p class="poem-line">On the thirteenth of September, the stars shall align,</p>
+                    <p class="poem-line">To seal a promise, eternal, divine.</p>
+                </div>
+            </div>
+            <div class="poem-outro scroll-reveal">
+                <p>Join us as they begin their greatest journey together.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="story-section">
+        <div class="section-container">
+            <h2 class="section-title text-center scroll-reveal">A Union of Souls</h2>
+            <div class="story-grid">
+                <div class="story-image-container scroll-reveal">
+                    <div class="story-frame">
+                        <img src="assets/images/couple.jpg" alt="Elakkya and Gowdham Raj" class="story-img">
+                    </div>
+                </div>
+                <div class="story-text-container scroll-reveal">
+                    <h3 class="story-subtitle">The Harmony of E & G</h3>
+                    <p class="story-paragraph">
+                        Love is not just looking at one another, it is looking outward together in the same direction. Elakkya and Gowdham Raj bring two worlds together—where creativity meets stability, and poetry meets purpose. 
+                    </p>
+                    <p class="story-paragraph">
+                        Their union is a celebration of family, culture, and friendship. From the peaceful town of Ponamaravathi to the journey that lies ahead, they step forward with gratitude, holding the blessings of their elders and the laughter of their friends.
+                    </p>
+                    <div class="story-quote">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <span>"Like notes of a song in perfect key, they make a beautiful symphony."</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Gathering / Event Details Section -->
+    <section id="details" class="details-section">
+        <div class="section-container">
+            <h2 class="section-title text-center scroll-reveal">The Gathering</h2>
+            <p class="section-subtitle text-center scroll-reveal">We look forward to welcoming you to our celebrations</p>
+
+            <!-- Countdown Timer -->
+            <div class="countdown-wrapper scroll-reveal">
+                <h3 class="countdown-title">The Celebration Begins In</h3>
+                <div id="countdown" class="countdown-container">
+                    <div class="countdown-item">
+                        <span class="number" id="days">00</span>
+                        <span class="label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="number" id="hours">00</span>
+                        <span class="label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="number" id="minutes">00</span>
+                        <span class="label">Mins</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="number" id="seconds">00</span>
+                        <span class="label">Secs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Cards Grid -->
+            <div class="details-grid">
+                <!-- Card 1: Muhurtham -->
+                <div class="details-card scroll-reveal">
+                    <div class="card-icon"><i class="fa-solid fa-om"></i></div>
+                    <h3 class="card-title">Holy Matrimony</h3>
+                    <p class="card-date"><i class="far fa-calendar-check"></i> Sunday, September 13th</p>
+                    <p class="card-time"><i class="far fa-clock"></i> 9:00 AM - 10:30 AM IST</p>
+                    <div class="card-divider"></div>
+                    <p class="card-desc">The sacred wedding ceremony (Muhurtham) followed by traditional lunch.</p>
+                </div>
+
+                <!-- Card 2: Venue -->
+                <div class="details-card scroll-reveal">
+                    <div class="card-icon"><i class="fa-solid fa-gopuram"></i></div>
+                    <h3 class="card-title">The Venue</h3>
+                    <p class="card-venue-name">Sri Valli Marriage Hall</p>
+                    <p class="card-address">
+                        Pudukkottai Main Road,<br>
+                        Ponamaravathi, Pudukkottai District,<br>
+                        Tamil Nadu, India
+                    </p>
+                    <div class="card-divider"></div>
+                    <a href="https://maps.google.com/?q=Ponamaravathi,Pudukkottai,TamilNadu" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <i class="fa-solid fa-map-location-dot"></i> View on Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="rsvp-section">
+        <div class="section-container">
+            <div class="rsvp-card-wrapper scroll-reveal">
+                <div class="rsvp-glass-card">
+                    <h2 class="section-title text-center">Bless the Couple</h2>
+                    <p class="rsvp-subtitle text-center">Whether in person or in spirit, your warm wishes mean the world to us.</p>
+                    
+                    <form id="rsvp-form" class="rsvp-form">
+                        <div class="form-group">
+                            <label for="rsvp-name">Your Full Name</label>
+                            <input type="text" id="rsvp-name" required placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Will you be attending?</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="attendance" value="attending" checked>
+                                    <span class="custom-radio"></span>
+                                    Joyfully Attending
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="attendance" value="declined">
+                                    <span class="custom-radio"></span>
+                                    Regretfully Declining
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rsvp-guests">Number of Guests</label>
+                            <select id="rsvp-guests">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5+">5+ People</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="rsvp-message">Send Your Blessings & Wishes</label>
+                            <textarea id="rsvp-message" rows="4" placeholder="Write a beautiful poem, blessing or message for Elakkya & Gowdham Raj..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-submit">
+                            <span>Send Blessings</span> <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                    <!-- Success Message (Initially Hidden) -->
+                    <div id="rsvp-success" class="rsvp-success-message hidden">
+                        <div class="success-icon"><i class="fa-solid fa-heart"></i></div>
+                        <h3>Thank You!</h3>
+                        <p>Your blessings and response have been beautifully captured. Elakkya and Gowdham Raj thank you from the bottom of their hearts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h2 class="footer-title">E & G</h2>
+            <p class="footer-poetic">"Bound by love, blessed by elders, celebrated by you."</p>
+            <div class="footer-divider"></div>
+            <p class="footer-copyright">
+                &copy; 2026. Made with love for Elakkya & Gowdham Raj's Wedding.<br>
+                <span class="github-info"><i class="fab fa-github"></i> Designed and hosted with GitHub</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
