@@ -8,6 +8,7 @@ let player;
 let ytPlayerReady = false;
 let isPlaying = false;
 let envelopeCover, mainContent, musicToggle, toggleIcon, tooltipText;
+let activeScene = 'forest'; // Active scene tracker shared globally
 
 // Load YouTube Iframe API dynamically on the global scope
 const tag = document.createElement('script');
@@ -107,6 +108,7 @@ function startCinematicTour() {
         if (currentStep < sections.length) {
             const target = sections[currentStep];
             if (target) {
+                activeScene = target.dataset.scene; // update active scene explicitly during auto-scroll
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
             currentStep++;
@@ -149,7 +151,7 @@ function initWeddingApp() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     
-    let activeScene = 'forest'; // 'forest', 'waterfall', 'sky', 'blessings'
+    activeScene = 'forest'; // 'forest', 'waterfall', 'sky', 'blessings'
     let canvasWidth = window.innerWidth;
     let canvasHeight = window.innerHeight;
 
@@ -471,8 +473,7 @@ function initWeddingApp() {
 
     // --- Main Cinematic Canvas Animation Loop ---
     function animateStoryboard() {
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.15)';
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         if (activeScene === 'forest') {
             forestParticles.forEach(p => {

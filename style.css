@@ -536,20 +536,24 @@ body {
 }
 
 .story-frame-container {
-    margin: 2rem auto 4rem;
+    margin: 2rem auto 3rem;
 }
 
 .story-frame {
     position: relative;
-    padding: 12px;
+    width: 250px;
+    height: 250px;
     background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: var(--glass-shadow);
+    border: 2px solid var(--accent-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 25px rgba(var(--accent-gold-rgb), 0.45), var(--glass-shadow);
     backdrop-filter: var(--glass-blur);
-    max-width: 480px;
     margin: 0 auto;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
 }
 
 .story-frame::before {
@@ -559,16 +563,19 @@ body {
     left: 5px;
     right: 5px;
     bottom: 5px;
-    border: 1px solid rgba(var(--accent-gold-rgb), 0.25);
-    border-radius: 15px;
+    border: 1px dashed rgba(var(--accent-gold-rgb), 0.4);
+    border-radius: 50%;
     pointer-events: none;
+    animation: rotateSlow 20s infinite linear;
 }
 
 .story-img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
+    width: 92%;
+    height: 92%;
+    border-radius: 50%;
+    object-fit: cover;
     display: block;
+    border: 1px solid var(--accent-gold);
 }
 
 .divine-quote {
