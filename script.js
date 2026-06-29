@@ -136,6 +136,10 @@ function startCinematicTour() {
             if (target) {
                 activeScene = target.dataset.scene; // update active scene explicitly during auto-scroll
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Instantly reveal all text inside the scrolled target section as fallback
+                const targetReveals = target.querySelectorAll('.scroll-reveal');
+                targetReveals.forEach(el => el.classList.add('revealed'));
             }
             currentStep++;
             // Wait 5.5 seconds per scene, then go to next
@@ -169,6 +173,13 @@ function initWeddingApp() {
             mainContent.classList.add('main-visible');
         }
         
+        // Immediately reveal the first section's content to guarantee text visibility on load
+        const firstScene = document.getElementById('forest-scene');
+        if (firstScene) {
+            const reveals = firstScene.querySelectorAll('.scroll-reveal');
+            reveals.forEach(el => el.classList.add('revealed'));
+        }
+        
         // Start background music
         playAudio();
         
@@ -194,23 +205,25 @@ function initWeddingApp() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Dynamic Scene Tracker via Intersection Observer
+    // Dynamic Scene Tracker via Intersection Observer (wrapped in safety checks)
     const storyPanels = document.querySelectorAll('.story-panel');
-    const sceneObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                activeScene = entry.target.dataset.scene;
-                console.log('Scene changed to: ', activeScene);
-            }
+    if ('IntersectionObserver' in window) {
+        const sceneObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    activeScene = entry.target.dataset.scene;
+                    console.log('Scene changed to: ', activeScene);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '0px 0px -10% 0px'
         });
-    }, {
-        threshold: 0.3,
-        rootMargin: '0px 0px -10% 0px'
-    });
 
-    storyPanels.forEach(panel => {
-        sceneObserver.observe(panel);
-    });
+        storyPanels.forEach(panel => {
+            sceneObserver.observe(panel);
+        });
+    }
 
     // --- Particle and Asset Classes ---
 
@@ -644,21 +657,28 @@ function initWeddingApp() {
 
     // --- 5. Scroll Reveal animations ---
     const reveals = document.querySelectorAll('.scroll-reveal');
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                observer.unobserve(entry.target);
-            }
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -40px 0px'
-    });
 
-    reveals.forEach(reveal => {
-        revealObserver.observe(reveal);
-    });
+        reveals.forEach(reveal => {
+            revealObserver.observe(reveal);
+        });
+    } else {
+        // Fallback: immediately show all elements if observer is not supported
+        reveals.forEach(reveal => {
+            reveal.classList.add('revealed');
+        });
+    }
 
     // --- 6. RSVP Mock Form Submission ---
     const rsvpForm = document.getElementById('rsvp-form');
