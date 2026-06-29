@@ -117,13 +117,13 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             musicToggle.classList.remove('playing');
             toggleIcon.className = 'fas fa-music';
-            tooltipText.textContent = 'Play Wedding Melody';
+            tooltipText.textContent = 'திருமண இசையை இயக்கு';
             isPlaying = false;
         } else {
             audio.play().then(() => {
                 musicToggle.classList.add('playing');
                 toggleIcon.className = 'fas fa-pause';
-                tooltipText.textContent = 'Mute Music';
+                tooltipText.textContent = 'இசையை நிறுத்து';
                 isPlaying = true;
             }).catch(err => {
                 console.log('Audio autoplay prevented. Play initiated by user action.', err);
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (difference < 0) {
             // Marriage day has arrived or passed!
-            document.getElementById('countdown').innerHTML = `<div class="wedding-started-msg">We are Married! Thank you for your blessings.</div>`;
+            document.getElementById('countdown').innerHTML = `<div class="wedding-started-msg">திருமணம் இனிதே நிறைவுற்றது! தங்களின் ஆசிகளுக்கு நன்றி.</div>`;
             clearInterval(countdownInterval);
             return;
         }
