@@ -24,7 +24,9 @@ const coupleAvatar = {
     y: window.innerHeight / 2,
     targetX: window.innerWidth / 2,
     targetY: window.innerHeight / 2,
-    radius: 70, // standard circular size
+    radius: 70, // Keep for backward compatibility
+    width: 130, // Elegant portrait card width
+    height: 170, // Elegant portrait card height
     floatOffset: 0,
     opacity: 0,
     targetOpacity: 0,
@@ -103,34 +105,48 @@ const coupleAvatar = {
             ctx.shadowColor = 'rgba(34, 197, 94, 0.5)'; // Green forest glow
         }
         
-        // Draw gold outline ring
+        // Draw elegant gold portrait frame
         ctx.beginPath();
         ctx.strokeStyle = '#d4af37';
         ctx.lineWidth = 4;
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.roundRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height, 12);
         ctx.stroke();
         
-        // Draw white outer dashed ring
+        // Draw white outer dashed frame
         ctx.beginPath();
         ctx.strokeStyle = 'rgba(255,255,255,0.6)';
         ctx.lineWidth = 1;
         ctx.setLineDash([4, 4]);
-        ctx.arc(this.x, this.y, this.radius + 5, 0, Math.PI * 2);
+        ctx.roundRect(this.x - this.width / 2 - 4, this.y - this.height / 2 - 4, this.width + 8, this.height + 8, 14);
         ctx.stroke();
         
-        // Clip to draw circular face avatar with loading fallback
+        // Clip to draw rectangular avatar image with rounded corners
+        ctx.save();
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius - 2, 0, Math.PI * 2);
+        ctx.roundRect(this.x - this.width / 2 + 2, this.y - this.height / 2 + 2, this.width - 4, this.height - 4, 10);
         ctx.clip();
         
         if (avatarImg.complete && avatarImg.naturalWidth !== 0) {
-            ctx.drawImage(avatarImg, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+            let imgRatio = avatarImg.naturalWidth / avatarImg.naturalHeight;
+            let cardRatio = this.width / this.height;
+            let dw, dh, dx, dy;
+            
+            if (imgRatio > cardRatio) {
+                dh = this.height;
+                dw = this.height * imgRatio;
+                dx = this.x - dw / 2;
+                dy = this.y - this.height / 2;
+            } else {
+                dw = this.width;
+                dh = this.width / imgRatio;
+                dx = this.x - this.width / 2;
+                dy = this.y - dh / 2;
+            }
+            ctx.drawImage(avatarImg, dx, dy, dw, dh);
         } else {
             // Golden placeholder with Tamil initials (இ & க)
             ctx.fillStyle = '#1b070c';
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
             
             ctx.fillStyle = '#d4af37';
             ctx.font = 'bold 24px Outfit, Inter, sans-serif';
@@ -139,7 +155,8 @@ const coupleAvatar = {
             ctx.fillText('\u0b87 \u0026 \u0b95', this.x, this.y);
         }
         
-        ctx.restore();
+        ctx.restore(); // restore clip
+        ctx.restore(); // restore main save
         
         // Draw golden rays for blessings
         if (activeScene === 'blessings') {
@@ -159,8 +176,8 @@ const coupleAvatar = {
         ctx.beginPath();
         ctx.moveTo(window.innerWidth / 2 - 120, 0);
         ctx.lineTo(window.innerWidth / 2 + 120, 0);
-        ctx.lineTo(this.x + this.radius, this.y);
-        ctx.lineTo(this.x - this.radius, this.y);
+        ctx.lineTo(this.x + this.width / 2, this.y - this.height / 2);
+        ctx.lineTo(this.x - this.width / 2, this.y - this.height / 2);
         ctx.closePath();
         ctx.fill();
         ctx.restore();
@@ -551,6 +568,87 @@ function initWeddingApp() {
         }
     }
 
+    class WaterfallStream {
+        constructor(x, width, speed) {
+            this.x = x;
+            this.width = width;
+            this.speed = speed;
+            this.offset = 0;
+            this.layers = 3;
+        }
+        update() {
+            this.offset += this.speed;
+        }
+        draw() {
+            ctx.save();
+            // Continuous flowing background layers for the waterfall stream
+            for (let l = 0; l < this.layers; l++) {
+                let layerOffset = this.offset * (1 + l * 0.15) + l * 50;
+                let opacity = 0.22 - l * 0.04;
+                
+                ctx.strokeStyle = `rgba(224, 242, 254, ${opacity})`;
+                ctx.lineWidth = Math.random() * 2 + 1;
+                
+                // Draw multiple vertical wavy flows to create a continuous water texture
+                for (let dx = 0; dx < this.width; dx += 8) {
+                    ctx.beginPath();
+                    let sx = this.x + dx + Math.sin((layerOffset + dx) * 0.02) * 1.5;
+                    ctx.moveTo(sx, 0);
+                    ctx.lineTo(sx, canvasHeight - 20);
+                    ctx.stroke();
+                }
+            }
+            
+            // Draw a bright, semi-transparent center glow for the cascading stream
+            let grad = ctx.createLinearGradient(this.x, 0, this.x + this.width, 0);
+            grad.addColorStop(0, 'rgba(255,255,255,0)');
+            grad.addColorStop(0.3, 'rgba(220,240,255,0.22)');
+            grad.addColorStop(0.5, 'rgba(255,255,255,0.35)');
+            grad.addColorStop(0.7, 'rgba(220,240,255,0.22)');
+            grad.addColorStop(1, 'rgba(255,255,255,0)');
+            
+            ctx.fillStyle = grad;
+            ctx.fillRect(this.x, 0, this.width, canvasHeight - 20);
+            ctx.restore();
+        }
+    }
+
+    class WaterfallParticle {
+        constructor(xRange) {
+            this.xRange = xRange;
+            this.reset();
+        }
+        reset() {
+            this.x = this.xRange[0] + Math.random() * (this.xRange[1] - this.xRange[0]);
+            this.y = -50;
+            this.vy = Math.random() * 10 + 16;
+            this.length = Math.random() * 50 + 30;
+            this.width = Math.random() * 2.5 + 1;
+            this.opacity = Math.random() * 0.4 + 0.4;
+        }
+        update() {
+            this.y += this.vy;
+            if (this.y > canvasHeight - 20) {
+                createSplash(this.x, canvasHeight - 20);
+                this.reset();
+            }
+        }
+        draw() {
+            ctx.save();
+            ctx.beginPath();
+            let grad = ctx.createLinearGradient(this.x, this.y - this.length, this.x, this.y);
+            grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+            grad.addColorStop(0.7, 'rgba(235, 245, 255, 0.75)');
+            grad.addColorStop(1, '#ffffff');
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = this.width;
+            ctx.moveTo(this.x, this.y - this.length);
+            ctx.lineTo(this.x, this.y);
+            ctx.stroke();
+            ctx.restore();
+        }
+    }
+
     class SplashParticle {
         constructor(x, y) {
             this.x = x;
@@ -828,6 +926,8 @@ function initWeddingApp() {
     // --- Array Initializations ---
     let forestParticles = [];
     let waterfallDrops = [];
+    let waterfallStreams = [];
+    let waterfallParticles = [];
     let splashDrops = [];
     let mistDrops = [];
     let stars = [];
@@ -840,9 +940,22 @@ function initWeddingApp() {
         for (let i = 0; i < 40; i++) {
             forestParticles.push(new ForestParticle(true));
         }
-        for (let i = 0; i < 120; i++) {
+        for (let i = 0; i < 60; i++) {
             waterfallDrops.push(new WaterDrop(true));
         }
+        
+        // Setup cascading waterfall streams in the center
+        let streamWidth = canvasWidth * 0.12;
+        waterfallStreams.push(new WaterfallStream(canvasWidth * 0.44, streamWidth, 5));
+        waterfallStreams.push(new WaterfallStream(canvasWidth * 0.38, canvasWidth * 0.04, 4));
+        waterfallStreams.push(new WaterfallStream(canvasWidth * 0.58, canvasWidth * 0.04, 4));
+
+        // Create fast flowing particles inside the waterfall columns
+        for (let i = 0; i < 150; i++) {
+            let xRange = [canvasWidth * 0.38, canvasWidth * 0.62];
+            waterfallParticles.push(new WaterfallParticle(xRange));
+        }
+        
         for (let i = 0; i < 60; i++) {
             stars.push(new Star());
         }
@@ -885,10 +998,22 @@ function initWeddingApp() {
             });
         }
         else if (activeScene === 'waterfall') {
+            // Draw continuous cascading streams
+            waterfallStreams.forEach(stream => {
+                stream.update();
+                stream.draw();
+            });
+            // Draw fast flowing waterfall particles
+            waterfallParticles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            // Draw ambient surrounding drops
             waterfallDrops.forEach(d => {
                 d.update();
                 d.draw();
             });
+            // Draw splashes
             for (let i = splashDrops.length - 1; i >= 0; i--) {
                 let s = splashDrops[i];
                 s.update();
@@ -898,6 +1023,7 @@ function initWeddingApp() {
                     s.draw();
                 }
             }
+            // Draw mist
             for (let i = mistDrops.length - 1; i >= 0; i--) {
                 let m = mistDrops[i];
                 m.update();
