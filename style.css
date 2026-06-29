@@ -1,26 +1,24 @@
 /* 
-   Twilight Rose-Gold & Starlit Navy Design System
-   Designed with love for Elakkya & Gowdham Raj's Wedding
+   Cinematic Tamil Wedding Invitation Styles
+   For Elakkya & Gowdham Raj's Wedding
 */
 
 :root {
-    --bg-primary: hsl(222, 47%, 11%);
-    --bg-secondary: hsl(222, 47%, 16%);
+    --bg-crimson: hsl(346, 57%, 27%); /* #6B1D2F - Traditional Kumkum red */
+    --bg-primary: hsl(222, 47%, 10%);
     --accent-gold: hsl(38, 55%, 65%);
     --accent-gold-rgb: 218, 178, 102;
     --accent-rose: hsl(346, 52%, 70%);
-    --accent-rose-rgb: 224, 133, 154;
-    
     --text-primary: hsl(210, 40%, 96%);
     --text-secondary: hsl(215, 20%, 75%);
     --text-dark: hsl(222, 47%, 11%);
     
-    --glass-bg: hsla(222, 47%, 18%, 0.65);
+    --glass-bg: hsla(222, 47%, 15%, 0.55);
     --glass-border: hsla(0, 0%, 100%, 0.08);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
     --glass-blur: blur(12px);
     
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-smooth: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     
     --font-heading: 'Cinzel Decorative', Georgia, serif;
     --font-script: 'Great Vibes', cursive;
@@ -28,7 +26,7 @@
     --font-serif: 'Playfair Display', serif;
 }
 
-/* Base resets & styles */
+/* Base resets */
 * {
     margin: 0;
     padding: 0;
@@ -38,7 +36,6 @@
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
-    font-size: 16px;
 }
 
 body {
@@ -49,15 +46,185 @@ body {
     overflow-x: hidden;
 }
 
-/* Background canvas */
-#particle-canvas {
+/* Unified Storyboard Background Canvas */
+#story-canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 1; /* under the text */
+}
+
+/* 1. Interactive Invitation Envelope Overlay */
+.envelope-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+}
+
+.envelope-flap {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50.5vh; /* slightly overlap to avoid seams */
+    background: linear-gradient(135deg, var(--bg-crimson), #4A1220);
+    border: 3px solid var(--accent-gold);
+    z-index: 1001;
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.top-flap {
+    top: 0;
+    border-bottom: 2px solid var(--accent-gold);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.bottom-flap {
+    bottom: 0;
+    border-top: 2px solid var(--accent-gold);
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+}
+
+/* The Envelope Opening Trigger animations */
+.envelope-container.open .top-flap {
+    transform: translateY(-100%);
+}
+
+.envelope-container.open .bottom-flap {
+    transform: translateY(100%);
+}
+
+.envelope-container.open {
+    pointer-events: none;
+    visibility: hidden;
+    transition: visibility 0s 1.2s;
+}
+
+/* The central gold card inside the envelope */
+.envelope-card {
+    position: relative;
+    z-index: 1002;
+    background: linear-gradient(135deg, #1b070c, #2d0e16);
+    border: 2px solid var(--accent-gold);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    max-width: 550px;
+    width: 90%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(var(--accent-gold-rgb), 0.15);
+    transition: var(--transition-smooth);
+    animation: cardPulse 4s infinite alternate ease-in-out;
+}
+
+.envelope-container.open .envelope-card {
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.card-monogram {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--accent-gold);
+    letter-spacing: 4px;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.3);
+}
+
+.card-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    color: var(--accent-rose);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.card-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.card-divider .line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+}
+
+.card-divider .symbol {
+    color: var(--accent-gold);
+    font-size: 1rem;
+    animation: rotateSlow 20s infinite linear;
+}
+
+.card-names {
+    font-family: var(--font-serif);
+    font-size: 2.3rem;
+    background: linear-gradient(to right, #fff, var(--accent-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.card-tap-instruction {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.btn-open-envelope {
+    background: linear-gradient(135deg, var(--accent-gold), hsl(38, 55%, 50%));
+    color: var(--text-dark);
+    border: none;
+    padding: 12px 32px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(var(--accent-gold-rgb), 0.3);
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-open-envelope:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(var(--accent-gold-rgb), 0.5);
+}
+
+/* Main hidden at start */
+.main-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.main-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 1.5s ease-out;
 }
 
 /* Floating Music Player */
@@ -65,7 +232,7 @@ body {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    z-index: 100;
+    z-index: 900;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -92,7 +259,6 @@ body {
     background: var(--accent-gold);
     color: var(--text-dark);
     box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.6);
-    transform: scale(1.1);
 }
 
 .music-toggle.playing .pulse-ring {
@@ -147,13 +313,12 @@ body {
     padding: 1rem 5%;
 }
 
-.navbar .logo {
+.logo {
     font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--accent-gold);
     letter-spacing: 2px;
-    cursor: pointer;
 }
 
 .nav-links {
@@ -165,7 +330,6 @@ body {
     color: var(--text-primary);
     text-decoration: none;
     font-size: 0.85rem;
-    text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 500;
     position: relative;
@@ -210,45 +374,153 @@ body {
     transition: var(--transition-smooth);
 }
 
-/* Sections General */
-section {
+/* 2. Storyboard Fullscreen Panels */
+.story-panel {
     position: relative;
-    padding: 7rem 5% 5rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 10% 5rem;
     z-index: 2;
+    overflow: hidden;
 }
 
-.section-container {
-    max-width: 1200px;
-    margin: 0 auto;
+.scene-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.section-title {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--accent-gold);
-    margin-bottom: 2.5rem;
-    letter-spacing: 3px;
+/* Contextual ambient gradients to slide over the canvas */
+#forest-scene .scene-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.6) 0%,
+        rgba(12, 38, 23, 0.4) 50%,
+        rgba(15, 23, 42, 0.7) 100%
+    );
+}
+
+#waterfall-scene .scene-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.7) 0%,
+        rgba(16, 28, 48, 0.4) 50%,
+        rgba(10, 16, 28, 0.8) 100%
+    );
+}
+
+#sky-scene .scene-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 16, 28, 0.8) 0%,
+        rgba(13, 20, 38, 0.4) 50%,
+        rgba(12, 10, 20, 0.8) 100%
+    );
+}
+
+#divine-scene .scene-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(12, 10, 20, 0.8) 0%,
+        rgba(43, 14, 21, 0.4) 40%,
+        rgba(15, 23, 42, 0.95) 100%
+    );
+}
+
+.panel-content {
     position: relative;
-}
-
-.text-center {
+    z-index: 2;
     text-align: center;
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.section-subtitle {
+.scene-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: var(--accent-rose);
+    margin-bottom: 1.5rem;
+}
+
+.scene-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    background: linear-gradient(to right, #fff, var(--accent-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 4px;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.scene-divider {
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+    margin-bottom: 2.5rem;
+}
+
+.scene-poetic-lines {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.5px;
+    margin-bottom: 3rem;
+}
+
+.story-quote {
+    margin-top: 1rem;
+    max-width: 600px;
+    border-left: 2px solid var(--accent-rose);
+    border-right: 2px solid var(--accent-rose);
+    padding: 0 2rem;
+    margin-bottom: 4rem;
+}
+
+.story-quote span {
     font-family: var(--font-serif);
     font-style: italic;
+    font-size: 1.15rem;
     color: var(--text-secondary);
-    font-size: 1.1rem;
-    margin-top: -1.5rem;
-    margin-bottom: 3.5rem;
+    line-height: 1.8;
 }
 
-/* Scroll Animation Hooks */
+.scene-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+.scene-indicator i {
+    font-size: 1.1rem;
+    color: var(--accent-gold);
+}
+
+/* Scroll Reveal Hooks */
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(40px);
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .scroll-reveal.revealed {
@@ -256,222 +528,27 @@ section {
     transform: translateY(0);
 }
 
-/* Hero Section */
-.hero-section {
-    height: 100vh;
-    min-height: 700px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url('assets/images/hero_bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding: 0;
+/* 3. Divine Section / Wedding details specific styling */
+.divine-panel {
+    min-height: auto;
+    padding-top: 8rem;
+    padding-bottom: 3rem;
 }
 
-.hero-bg-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(15, 23, 42, 0.4) 0%,
-        rgba(15, 23, 42, 0.7) 60%,
-        var(--bg-primary) 100%
-    );
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 900px;
-    padding: 2rem;
-}
-
-.decorative-monogram {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    color: var(--accent-gold);
-    letter-spacing: 8px;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.3);
-}
-
-.hero-subtitle {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: var(--accent-rose);
-    margin-bottom: 2rem;
-}
-
-.hero-names {
-    font-family: var(--font-serif);
-    font-size: 4.5rem;
-    font-weight: 400;
-    margin-bottom: 2rem;
-    line-height: 1.1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-}
-
-.hero-names .name {
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(to right, #ffffff, var(--accent-gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-names .ampersand {
-    font-family: var(--font-script);
-    font-size: 3.5rem;
-    color: var(--accent-rose);
-    margin: 5px 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin: 2rem 0;
-}
-
-.divider .line {
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
-}
-
-.divider .lotus {
-    color: var(--accent-gold);
-    font-size: 1.2rem;
-    animation: rotateSlow 20s infinite linear;
-}
-
-.hero-date-venue {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.hero-date-venue i {
-    color: var(--accent-gold);
-    margin-right: 5px;
-}
-
-.hero-date-venue .bullet {
-    color: var(--accent-rose);
-}
-
-.scroll-down-indicator {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-secondary);
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    animation: bounce 2s infinite ease-in-out;
-}
-
-.scroll-down-indicator i {
-    font-size: 1.2rem;
-    color: var(--accent-gold);
-}
-
-/* Poem Section */
-.poem-section {
-    background-color: var(--bg-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 90vh;
-}
-
-.poem-container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.poem-stanza {
-    margin-bottom: 4rem;
-    transition: var(--transition-smooth);
-}
-
-.poem-line {
-    font-family: var(--font-serif);
-    font-size: 1.45rem;
-    font-style: italic;
-    color: var(--text-primary);
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.5px;
-}
-
-.poem-line:nth-child(even) {
-    color: var(--accent-rose);
-}
-
-.poem-stanza:hover .poem-line {
-    text-shadow: 0 0 8px rgba(var(--accent-rose-rgb), 0.2);
-    transform: scale(1.02);
-    transition: var(--transition-smooth);
-}
-
-.poem-outro {
-    text-align: center;
-    font-family: var(--font-script);
-    font-size: 2.5rem;
-    color: var(--accent-gold);
-    margin-top: 2rem;
-}
-
-/* Our Story Section */
-.story-section {
-    background-color: var(--bg-secondary);
-}
-
-.story-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1.3fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.story-image-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
+.story-frame-container {
+    margin: 2rem auto 4rem;
 }
 
 .story-frame {
     position: relative;
-    padding: 15px;
+    padding: 12px;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     box-shadow: var(--glass-shadow);
     backdrop-filter: var(--glass-blur);
-    max-width: 420px;
+    max-width: 480px;
+    margin: 0 auto;
     overflow: hidden;
 }
 
@@ -492,60 +569,26 @@ section {
     height: auto;
     border-radius: 10px;
     display: block;
-    filter: brightness(0.95);
-    transition: var(--transition-smooth);
 }
 
-.story-frame:hover .story-img {
-    filter: brightness(1.05);
-    transform: scale(1.03);
-}
-
-.story-text-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.story-subtitle {
-    font-family: var(--font-serif);
-    font-size: 1.8rem;
-    color: var(--accent-gold);
-    position: relative;
-    margin-bottom: 0.5rem;
-}
-
-.story-paragraph {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.7;
-}
-
-.story-quote {
-    margin-top: 1rem;
-    padding-left: 1.5rem;
-    border-left: 2px solid var(--accent-rose);
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.story-quote i {
-    font-size: 1.5rem;
+.divine-quote {
     color: var(--accent-rose);
-    opacity: 0.5;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
 }
 
-.story-quote span {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--text-primary);
+.details-section-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 6rem;
 }
 
-/* Event Details & Countdown */
-.details-section {
-    background-color: var(--bg-primary);
+.event-details-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--accent-gold);
+    margin-bottom: 3rem;
+    letter-spacing: 2px;
 }
 
 .countdown-wrapper {
@@ -574,7 +617,7 @@ section {
 
 .countdown-title {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--accent-rose);
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -605,7 +648,6 @@ section {
 
 .countdown-item .label {
     font-size: 0.8rem;
-    text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--text-secondary);
     margin-top: 10px;
@@ -710,15 +752,11 @@ section {
     background: linear-gradient(135deg, hsl(38, 55%, 55%), var(--accent-gold));
 }
 
-/* RSVP Section */
-.rsvp-section {
-    background-color: var(--bg-secondary);
-    background-image: linear-gradient(to bottom, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-}
-
+/* RSVP Form styling */
 .rsvp-card-wrapper {
     max-width: 650px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0 auto 5rem;
 }
 
 .rsvp-glass-card {
@@ -730,6 +768,7 @@ section {
     padding: 4rem 3rem;
     position: relative;
     overflow: hidden;
+    text-align: left;
 }
 
 .rsvp-glass-card::before {
@@ -742,10 +781,18 @@ section {
     background: linear-gradient(to bottom, var(--accent-gold), var(--accent-rose));
 }
 
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--accent-gold);
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+}
+
 .rsvp-subtitle {
     color: var(--text-secondary);
     font-size: 0.95rem;
-    margin-top: -1.5rem;
+    margin-top: -0.5rem;
     margin-bottom: 2.5rem;
 }
 
@@ -794,7 +841,8 @@ section {
 
 .radio-group {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 12px;
     margin-top: 5px;
 }
 
@@ -888,12 +936,9 @@ section {
 
 /* Footer Section */
 .footer {
-    background-color: var(--bg-primary);
-    padding: 5rem 5% 3rem;
+    padding: 5rem 0 2rem;
     border-top: 1px solid rgba(var(--accent-gold-rgb), 0.1);
     text-align: center;
-    position: relative;
-    z-index: 2;
 }
 
 .footer-content {
@@ -954,10 +999,10 @@ section {
 
 @keyframes bounce {
     0%, 100% {
-        transform: translate(-50%, 0);
+        transform: translateY(0);
     }
     50% {
-        transform: translate(-50%, -10px);
+        transform: translateY(-10px);
     }
 }
 
@@ -999,11 +1044,19 @@ section {
     }
 }
 
+@keyframes cardPulse {
+    from {
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        border-color: var(--accent-gold);
+    }
+    to {
+        box-shadow: 0 20px 55px rgba(var(--accent-gold-rgb), 0.15);
+        border-color: var(--accent-rose);
+    }
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 1024px) {
-    .story-grid {
-        gap: 2.5rem;
-    }
     .countdown-container {
         gap: 2rem;
     }
@@ -1047,43 +1100,19 @@ section {
         transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* Hero Text Adjustments */
-    .hero-names {
-        font-size: 3.2rem;
+    .scene-title {
+        font-size: 2.3rem;
     }
     
-    .hero-names .ampersand {
-        font-size: 2.5rem;
+    .scene-poetic-lines {
+        font-size: 1.15rem;
+        line-height: 1.8;
     }
     
-    .hero-date-venue {
-        font-size: 0.95rem;
-        flex-direction: column;
-        gap: 5px;
-    }
-    
-    .hero-date-venue .bullet {
-        display: none;
+    .story-panel {
+        padding: 6rem 5% 5rem;
     }
 
-    /* Poem text scaling */
-    .poem-line {
-        font-size: 1.2rem;
-    }
-    .poem-outro {
-        font-size: 2rem;
-    }
-
-    /* Grids to single columns */
-    .story-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-    
-    .story-image-container {
-        order: -1; /* image on top */
-    }
-    
     .details-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1108,15 +1137,8 @@ section {
 }
 
 @media (max-width: 480px) {
-    .hero-names {
-        font-size: 2.6rem;
-    }
-    .section-title {
+    .scene-title {
         font-size: 2rem;
-    }
-    .music-player {
-        bottom: 1rem;
-        right: 1rem;
     }
     .countdown-item {
         min-width: 70px;
@@ -1125,81 +1147,3 @@ section {
         font-size: 2.2rem;
     }
 }
-
-/* Parallax Nature Dividers */
-.parallax-divider {
-    position: relative;
-    height: 350px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    z-index: 2;
-}
-
-#waterfall-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.parallax-waterfall {
-    background-image: url('assets/images/waterfall.jpg');
-}
-
-.parallax-lotus {
-    background-image: url('assets/images/lotus.jpg');
-}
-
-.divider-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(15, 23, 42, 0.6) 0%,
-        rgba(15, 23, 42, 0.4) 50%,
-        rgba(15, 23, 42, 0.6) 100%
-    );
-    z-index: 1;
-}
-
-.divider-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 2rem;
-    max-width: 800px;
-}
-
-.divider-quote {
-    font-family: var(--font-serif);
-    font-size: 1.8rem;
-    font-style: italic;
-    color: var(--accent-gold);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-    line-height: 1.5;
-    letter-spacing: 0.5px;
-}
-
-/* Adjust for mobile screens */
-@media (max-width: 768px) {
-    .parallax-divider {
-        height: 250px;
-        background-attachment: scroll; /* Disable fixed parallax on mobile for smooth performance */
-    }
-    .divider-quote {
-        font-size: 1.3rem;
-    }
-}
-

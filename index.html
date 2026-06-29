@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="இலக்கியா & கௌதம் ராஜ் திருமண நல்விழா அழைப்பிதழ். செப்டம்பர் 13, பொன்னமராவதி. இரு இதயங்களின் மங்கல சங்கமம்.">
-    <title>இலக்கியா & கௌதம் ராஜ் திருமண வரவேற்பு</title>
+    <meta name="description" content="இலக்கியா & கௌதம் ராஜ் திருமண நல்விழா அழைப்பிதழ். இரு இதயங்களின் தெய்வீக சங்கமம்.">
+    <title>இலக்கியா & கௌதம் ராஜ் திருமண நல்வரவு</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +19,8 @@
 </head>
 <body>
 
-    <!-- Canvas for Floating Gold Particles / Flower Petals -->
-    <canvas id="particle-canvas"></canvas>
+    <!-- Unified Storyboard Canvas (Forest Leaves, Waterfall Drops, Clouds, Golden Blessings) -->
+    <canvas id="story-canvas"></canvas>
 
     <!-- Floating Background Music Player -->
     <div class="music-player" id="music-player">
@@ -35,268 +35,264 @@
         </audio>
     </div>
 
-    <!-- Elegant Floating Navigation -->
-    <header class="navbar">
-        <div class="logo">E & G</div>
-        <nav class="nav-links">
-            <a href="#hero" class="nav-link active">முகப்பு</a>
-            <a href="#prelude" class="nav-link">காதல் கவிதை</a>
-            <a href="#story" class="nav-link">எங்கள் பயணம்</a>
-            <a href="#details" class="nav-link">திருமண விழா</a>
-            <a href="#rsvp" class="nav-link">வாழ்த்துகள்</a>
-        </nav>
-        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section">
-        <div class="hero-bg-overlay"></div>
-        <div class="hero-content">
-            <div class="decorative-monogram scroll-reveal">E & G</div>
-            <p class="hero-subtitle scroll-reveal">மகிழ்ச்சி நிறைந்த இதயங்களுடன் உங்களை அன்போடு அழைக்கிறோம்</p>
-            <h1 class="hero-names scroll-reveal">
-                <span class="name">இலக்கியா</span>
-                <span class="ampersand">&</span>
-                <span class="name">கௌதம் ராஜ்</span>
-            </h1>
-            <div class="divider scroll-reveal">
+    <!-- 1. Interactive Invitation Envelope / Opening Card -->
+    <div id="envelope-cover" class="envelope-container">
+        <div class="envelope-flap top-flap"></div>
+        <div class="envelope-flap bottom-flap"></div>
+        <div class="envelope-card">
+            <div class="card-monogram">E & G</div>
+            <h2 class="card-title">திருமண அழைப்பிதழ்</h2>
+            <div class="card-divider">
                 <span class="line"></span>
-                <span class="lotus"><i class="fa-solid fa-om"></i></span>
+                <span class="symbol"><i class="fa-solid fa-om"></i></span>
                 <span class="line"></span>
             </div>
-            <p class="hero-date-venue scroll-reveal">
-                <span class="date"><i class="far fa-calendar-alt"></i> செப்டம்பர் 13</span>
-                <span class="bullet">•</span>
-                <span class="venue"><i class="fas fa-map-marker-alt"></i> பொன்னமராவதி</span>
-            </p>
-            <div class="scroll-down-indicator">
-                <span>கவிதையைக் காண கீழே வரவும்</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
+            <p class="card-names">இலக்கியா & கௌதம் ராஜ்</p>
+            <p class="card-tap-instruction">அழைப்பிதழைத் திறக்க இங்கே அழுத்தவும்</p>
+            <button id="open-envelope-btn" class="btn-open-envelope">
+                <span>திறக்க</span> <i class="fa-solid fa-envelope-open"></i>
+            </button>
         </div>
-    </section>
+    </div>
 
-    <!-- The Prelude / Poem Section -->
-    <section id="prelude" class="poem-section">
-        <div class="section-container">
-            <h2 class="section-title text-center scroll-reveal">காதல் காவியம்</h2>
-            <div class="poem-container">
-                <div class="poem-stanza scroll-reveal">
-                    <p class="poem-line">மண்ணினில் மலர்ந்த காதல் மலர்,</p>
-                    <p class="poem-line">விண்ணினில் இணைந்தது இன்று!</p>
-                    <p class="poem-line">இரு வேறு பாதைகள் இணைந்திடும் ஓரிடம்,</p>
-                    <p class="poem-line">மங்கல வாழ்வின் நல் தொடக்கம்!</p>
+    <!-- Main Content wrapper (revealed after envelope opens) -->
+    <main id="main-content" class="main-hidden">
+        
+        <!-- Floating Navigation -->
+        <header class="navbar">
+            <div class="logo">E & G</div>
+            <nav class="nav-links">
+                <a href="#forest-scene" class="nav-link active">கானகம்</a>
+                <a href="#waterfall-scene" class="nav-link">அருவி</a>
+                <a href="#sky-scene" class="nav-link">விண்ணகம்</a>
+                <a href="#divine-scene" class="nav-link">இறை ஆசி</a>
+            </nav>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- Scene 1: Deep into the Forest (கானகம்) -->
+        <section id="forest-scene" class="story-panel scene-active" data-scene="forest">
+            <div class="scene-overlay"></div>
+            <div class="panel-content scroll-reveal">
+                <p class="scene-label">அத்தியாயம் 1: இயற்கை எழில்</p>
+                <h2 class="scene-title">பசுமை கானகம்</h2>
+                <div class="scene-divider"></div>
+                <p class="scene-poetic-lines">
+                    பசுமை படர்ந்த மாஞ்சோலைகள் நடுவே,<br>
+                    மல்லிகைப் பூக்கள் மெல்ல அசைந்தாட,<br>
+                    இயற்கையின் மடியில் அமைந்த பொன்னமராவதியில்...<br>
+                    இரு வேறு இதயங்கள் இணையும் நல்வேளை!
+                </p>
+                <div class="story-quote">
+                    <span>"இலக்கியா — மெல்லிசை பாடும் காலைத் தென்றல்,<br>அமைதியும் அன்பும் நிறைந்த அழகிய பூவல்லி."</span>
                 </div>
+                <div class="scene-indicator">
+                    <span>அருவியின் சாரலை நோக்கி கீழே செல்லவும்</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 2: Into the Waterfall (அருவி) -->
+        <section id="waterfall-scene" class="story-panel" data-scene="waterfall">
+            <div class="scene-overlay"></div>
+            <div class="panel-content scroll-reveal">
+                <p class="scene-label">அத்தியாயம் 2: மங்கல நீர்</p>
+                <h2 class="scene-title">அருவியின் சாரல்</h2>
+                <div class="scene-divider"></div>
+                <p class="scene-poetic-lines">
+                    மலையிலிருந்து கொட்டும் மாசற்ற அருவி போல்,<br>
+                    தூய்மையான அன்பு இவர்களுள் பெருக்கெடுத்தோட...<br>
+                    சில்லென்ற நீர்த்துளிகள் காற்றில் மிதக்க,<br>
+                    மங்கல வாழ்வின் நல்நீராடல் இதோ தொடங்குகிறது!
+                </p>
+                <div class="story-quote">
+                    <span>"கௌதம் ராஜ் — அசைக்க முடியாத அலைகடல் கரை,<br>அமைதியும் உறுதியும் கொண்ட அவளின் அன்புத் துணை."</span>
+                </div>
+                <div class="scene-indicator">
+                    <span>விண்மீன் உலகை நோக்கி மேலே பறக்கவும்</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 3: Into the Clouds and Sky (விண்ணகம்) -->
+        <section id="sky-scene" class="story-panel" data-scene="sky">
+            <div class="scene-overlay"></div>
+            <div class="panel-content scroll-reveal">
+                <p class="scene-label">அத்தியாயம் 3: விண்மீன் உலகம்</p>
+                <h2 class="scene-title">முகில் மடி</h2>
+                <div class="scene-divider"></div>
+                <p class="scene-poetic-lines">
+                    வெண்முகில்கள் தழுவும் வானத்தின் உச்சியில்,<br>
+                    விண்மீன்கள் கண் சிமிட்டி நல்வாழ்த்துச் சொல்ல,<br>
+                    காலத்தைக் கடந்த ஒரு பெரும் காவியமாய்,<br>
+                    விண்ணகம் வியக்க இணைகிறது இவர்களின் பந்தம்!
+                </p>
+                <div class="story-quote">
+                    <span>"வானத்தின் விண்மீன்கள் சாட்சியாய் நிற்க,<br>முகில்களின் மடியில் ஒரு தெய்வீகக் காதல் பயணம்!"</span>
+                </div>
+                <div class="scene-indicator">
+                    <span>இறைவனின் பேரருள் பெற கீழே இறங்கவும்</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 4: Blessings by God & Wedding Details (இறை ஆசி) -->
+        <section id="divine-scene" class="story-panel divine-panel" data-scene="blessings">
+            <div class="scene-overlay"></div>
+            <div class="panel-content scroll-reveal">
+                <p class="scene-label">அத்தியாயம் 4: மங்கல நாண்</p>
+                <h2 class="scene-title">இறைவனின் ஆசி</h2>
+                <div class="scene-divider"></div>
                 
-                <div class="poem-stanza scroll-reveal">
-                    <p class="poem-line">இலக்கியா — மெல்லிசை பாடும் காலைத் தென்றல்,</p>
-                    <p class="poem-line">அமைதியும் அன்பும் நிறைந்த அழகிய பூவல்லி.</p>
-                    <p class="poem-line">கனவுகளை நெஞ்சில் சுமந்து நடக்கும்</p>
-                    <p class="poem-line">கவிதை இவள், அன்பின் மாசற்ற சின்னம்!</p>
-                </div>
-
-                <div class="poem-stanza scroll-reveal">
-                    <p class="poem-line">கௌதம் ராஜ் — அசைக்க முடியாத அலைகடல் கரை,</p>
-                    <p class="poem-line">அமைதியும் உறுதியும் கொண்ட அன்புத் துணை.</p>
-                    <p class="poem-line">நேர்மை வழியில் நடக்கும் இவன் நெஞ்சம்,</p>
-                    <p class="poem-line">அவள் பாதையை நோக்கி நகர்ந்தது இன்று!</p>
-                </div>
-
-                <div class="poem-stanza scroll-reveal">
-                    <p class="poem-line">பொன்னமராவதி பொன்னான நன்னாட்டில்,</p>
-                    <p class="poem-line">இயற்கையின் சாட்சியாய், பெரியோர் ஆசியுடன்,</p>
-                    <p class="poem-line">செப்டம்பர் திங்கள் பதின்மூன்றாம் நாளில்,</p>
-                    <p class="poem-line">இணைகிறது இவர்களின் திருமணப் பந்தம்!</p>
-                </div>
-            </div>
-            <div class="poem-outro scroll-reveal">
-                <p>புதுப் பயணத்தில் இணையும் இரு மலர்களை வாழ்த்துவோம்.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Our Story Section -->
-    <section id="story" class="story-section">
-        <div class="section-container">
-            <h2 class="section-title text-center scroll-reveal">எங்கள் பயணம்</h2>
-            <div class="story-grid">
-                <div class="story-image-container scroll-reveal">
+                <!-- Actual Couple Photo Frame -->
+                <div class="story-frame-container">
                     <div class="story-frame">
-                        <img src="assets/images/couple.jpg" alt="இலக்கியா மற்றும் கௌதம் ராஜ்" class="story-img">
+                        <img src="assets/images/couple.jpg" alt="இலக்கியா & கௌதம் ராஜ்" class="story-img">
                     </div>
                 </div>
-                <div class="story-text-container scroll-reveal">
-                    <h3 class="story-subtitle">இலக்கியா & கௌதம் ராஜ்</h3>
-                    <p class="story-paragraph">
-                        காதல் என்பது வெறும் பார்வை அல்ல, அது இருவரும் ஒரே திசையை நோக்கி இணைந்து பயணிப்பதாகும். இலக்கியா மற்றும் கௌதம் ராஜ் ஆகிய இருவரும் தங்களின் புதிய வாழ்க்கைப் பயணத்தை அன்புடன் தொடங்குகின்றனர்.
-                    </p>
-                    <p class="story-paragraph">
-                        பொன்னமராவதியின் இயற்கை எழில் கொஞ்சும் சூழலில், இரு குடும்பங்களின் ஆசியுடனும், சுற்றமும் நட்பும் போற்ற, தங்கள் வாழ்க்கையின் புதிய அத்தியாயத்தை நம்பிக்கையுடன் தொடங்குகிறார்கள்.
-                    </p>
-                    <div class="story-quote">
-                        <i class="fa-solid fa-quote-left"></i>
-                        <span>"இசையும் ராகமும் இணைந்தது போல், இவர்களின் வாழ்வு என்றும் இனிமையாக அமையட்டும்."</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Parallax Divider 1: Waterfall -->
-    <div class="parallax-divider parallax-waterfall">
-        <canvas id="waterfall-canvas"></canvas>
-        <div class="divider-overlay"></div>
-        <div class="divider-content">
-            <h3 class="divider-quote">"இயற்கையின் சாட்சியாய், மலர்ந்த தூய அன்பின் வெளிப்பாடாய்..."</h3>
-        </div>
-    </div>
+                <p class="scene-poetic-lines divine-quote">
+                    "பெரியோர்கள் ஆசிபெற, இறைவனின் சாட்சியுடன்,<br>
+                    வாழ்க்கை நதி இணைந்து ஓடிட வழிகாட்டும் நன்னாளிது!"
+                </p>
 
-    <!-- The Gathering / Event Details Section -->
-    <section id="details" class="details-section">
-        <div class="section-container">
-            <h2 class="section-title text-center scroll-reveal">திருமண விழா</h2>
-            <p class="section-subtitle text-center scroll-reveal">எங்கள் குடும்ப நல்விழாவிற்கு தங்களை அன்போடு எதிர்பார்க்கிறோம்</p>
-
-            <!-- Countdown Timer -->
-            <div class="countdown-wrapper scroll-reveal">
-                <h3 class="countdown-title">திருமண விழா தொடங்க இன்னும்</h3>
-                <div id="countdown" class="countdown-container">
-                    <div class="countdown-item">
-                        <span class="number" id="days">00</span>
-                        <span class="label">நாட்கள்</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="number" id="hours">00</span>
-                        <span class="label">மணிகள்</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="number" id="minutes">00</span>
-                        <span class="label">நிமிடங்கள்</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="number" id="seconds">00</span>
-                        <span class="label">நொடிகள்</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Details Cards Grid -->
-            <div class="details-grid">
-                <!-- Card 1: Muhurtham -->
-                <div class="details-card scroll-reveal">
-                    <div class="card-icon"><i class="fa-solid fa-om"></i></div>
-                    <h3 class="card-title">திருமண நல்விழா</h3>
-                    <p class="card-date"><i class="far fa-calendar-check"></i> ஞாயிற்றுக்கிழமை, செப்டம்பர் 13</p>
-                    <p class="card-time"><i class="far fa-clock"></i> காலை 9:00 AM - 10:30 AM (நல்ல நேரம்)</p>
-                    <div class="card-divider"></div>
-                    <p class="card-desc">பாரம்பரிய முறைப்படி நடைபெறும் மங்கல நாண் பூட்டும் திருமண நல்விழா. தொடர்ந்து அறுசுவை மதிய விருந்து நடைபெறும்.</p>
-                </div>
-
-                <!-- Card 2: Venue -->
-                <div class="details-card scroll-reveal">
-                    <div class="card-icon"><i class="fa-solid fa-gopuram"></i></div>
-                    <h3 class="card-title">திருமண மண்டபம்</h3>
-                    <p class="card-venue-name">ஸ்ரீ வள்ளி திருமண மண்டபம்</p>
-                    <p class="card-address">
-                        புதுக்கோட்டை மெயின் ரோடு,<br>
-                        பொன்னமராவதி, புதுக்கோட்டை மாவட்டம்,<br>
-                        தமிழ்நாடு, இந்தியா.
-                    </p>
-                    <div class="card-divider"></div>
-                    <a href="https://maps.google.com/?q=Ponamaravathi,Pudukkottai,TamilNadu" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                        <i class="fa-solid fa-map-location-dot"></i> வரைபடத்தில் பார்க்க
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Parallax Divider 2: Lotus -->
-    <div class="parallax-divider parallax-lotus">
-        <div class="divider-overlay"></div>
-        <div class="divider-content">
-            <h3 class="divider-quote">"வாழ்க வளமுடன், பல்லாண்டு காலம்!"</h3>
-        </div>
-    </div>
-
-    <!-- RSVP Section -->
-    <section id="rsvp" class="rsvp-section">
-        <div class="section-container">
-            <div class="rsvp-card-wrapper scroll-reveal">
-                <div class="rsvp-glass-card">
-                    <h2 class="section-title text-center">மணமக்களை வாழ்த்துங்கள்</h2>
-                    <p class="rsvp-subtitle text-center">தங்களின் மேலான வாழ்த்துகளும் ஆசிகளும் மணமக்களை என்றும் வழிநடத்தும்.</p>
+                <!-- Wedding Event Details Grid -->
+                <div class="details-section-wrapper">
+                    <h3 class="event-details-title">திருமண நல்விழா விபரங்கள்</h3>
                     
-                    <form id="rsvp-form" class="rsvp-form">
-                        <div class="form-group">
-                            <label for="rsvp-name">உங்கள் பெயர்</label>
-                            <input type="text" id="rsvp-name" required placeholder="பெயரை உள்ளிடவும்">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>விழாவில் பங்கேற்பீர்களா?</label>
-                            <div class="radio-group">
-                                <label class="radio-label">
-                                    <input type="radio" name="attendance" value="attending" checked>
-                                    <span class="custom-radio"></span>
-                                    மகிழ்ச்சியுடன் கலந்து கொள்கிறேன்
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="attendance" value="declined">
-                                    <span class="custom-radio"></span>
-                                    வர இயலவில்லை
-                                </label>
+                    <div class="countdown-wrapper">
+                        <h4 class="countdown-title">மணநாள் தொடங்க இன்னும்</h4>
+                        <div id="countdown" class="countdown-container">
+                            <div class="countdown-item">
+                                <span class="number" id="days">00</span>
+                                <span class="label">நாட்கள்</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="number" id="hours">00</span>
+                                <span class="label">மணிகள்</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="number" id="minutes">00</span>
+                                <span class="label">நிமிடங்கள்</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="number" id="seconds">00</span>
+                                <span class="label">நொடிகள்</span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="rsvp-guests">உங்களுடன் வரும் விருந்தினர்கள்</label>
-                            <select id="rsvp-guests">
-                                <option value="1">1 நபர்</option>
-                                <option value="2">2 நபர்கள்</option>
-                                <option value="3">3 நபர்கள்</option>
-                                <option value="4">4 நபர்கள்</option>
-                                <option value="5+">5+ நபர்கள்</option>
-                            </select>
+                    <div class="details-grid">
+                        <!-- Card 1: Time & Rites -->
+                        <div class="details-card">
+                            <div class="card-icon"><i class="fa-solid fa-om"></i></div>
+                            <h4 class="card-title">திருமண முகூர்த்தம்</h4>
+                            <p class="card-date"><i class="far fa-calendar-check"></i> ஞாயிற்றுக்கிழமை, செப்டம்பர் 13</p>
+                            <p class="card-time"><i class="far fa-clock"></i> காலை 9:00 AM - 10:30 AM (நல்ல நேரம்)</p>
+                            <div class="card-divider"></div>
+                            <p class="card-desc">பெரியோர்கள் முன்னிலையில் பாரம்பரிய மங்கல நாண் பூட்டும் முகூர்த்த விழா. தொடர்ந்து மதிய அறுசுவை விருந்து.</p>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="rsvp-message">தங்களின் மங்கல வாழ்த்துகள்</label>
-                            <textarea id="rsvp-message" rows="4" placeholder="மணமக்களுக்கான தங்களின் நல்வாழ்த்துகள் மற்றும் கவிதைகளை இங்கு எழுதவும்..."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-submit">
-                            <span>வாழ்த்துகளை அனுப்பவும்</span> <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </form>
 
-                    <!-- Success Message (Initially Hidden) -->
-                    <div id="rsvp-success" class="rsvp-success-message hidden">
-                        <div class="success-icon"><i class="fa-solid fa-heart"></i></div>
-                        <h3>மிக்க நன்றி!</h3>
-                        <p>தங்களின் அன்பான வாழ்த்துகள் மங்கல தம்பதியரை சென்றடைந்தது. இலக்கியா மற்றும் கௌதம் ராஜ் தங்களின் அன்பிற்கு நெஞ்சார்ந்த நன்றி தெரிவிக்கிறார்கள்.</p>
+                        <!-- Card 2: Location Map -->
+                        <div class="details-card">
+                            <div class="card-icon"><i class="fa-solid fa-gopuram"></i></div>
+                            <h4 class="card-title">திருமண மண்டபம்</h4>
+                            <p class="card-venue-name">ஸ்ரீ Valli திருமண மண்டபம்</p>
+                            <p class="card-address">
+                                புதுக்கோட்டை மெயின் ரோடு,<br>
+                                பொன்னமராவதி, புதுக்கோட்டை மாவட்டம்,<br>
+                                தமிழ்நாடு, இந்தியா.
+                            </p>
+                            <div class="card-divider"></div>
+                            <a href="https://maps.google.com/?q=Ponamaravathi,Pudukkottai,TamilNadu" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                                <i class="fa-solid fa-map-location-dot"></i> வரைபடத்தில் காண்க
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <h2 class="footer-title">E & G</h2>
-            <p class="footer-poetic">"அன்பால் இணைந்து, பெரியோர் ஆசி பெற்று, தங்களின் வாழ்த்துகளோடு இல்லறம் காண்கிறார்கள்."</p>
-            <div class="footer-divider"></div>
-            <p class="footer-copyright">
-                &copy; 2026. இலக்கியா & கௌதம் ராஜ் திருமண நல்விழா.<br>
-                <span class="github-info"><i class="fab fa-github"></i> GitHub வழியே வடிவமைக்கப்பட்டு வெளியிடப்பட்டது</span>
-            </p>
-        </div>
-    </footer>
+                <!-- RSVP Wishes Form Card -->
+                <div class="rsvp-card-wrapper">
+                    <div class="rsvp-glass-card">
+                        <h2 class="section-title text-center">மணமக்களை வாழ்த்துங்கள்</h2>
+                        <p class="rsvp-subtitle text-center">தங்களின் மேலான வாழ்த்துகளும் ஆசிகளும் மணமக்களை என்றும் வழிநடத்தும்.</p>
+                        
+                        <form id="rsvp-form" class="rsvp-form">
+                            <div class="form-group">
+                                <label for="rsvp-name">உங்கள் பெயர்</label>
+                                <input type="text" id="rsvp-name" required placeholder="பெயரை உள்ளிடவும்">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>விழாவில் பங்கேற்பீர்களா?</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="attendance" value="attending" checked>
+                                        <span class="custom-radio"></span>
+                                        மகிழ்ச்சியுடன் கலந்து கொள்கிறேன்
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="attendance" value="declined">
+                                        <span class="custom-radio"></span>
+                                        வர இயலவில்லை
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rsvp-guests">உங்களுடன் வரும் விருந்தினர்கள்</label>
+                                <select id="rsvp-guests">
+                                    <option value="1">1 நபர்</option>
+                                    <option value="2">2 நபர்கள்</option>
+                                    <option value="3">3 நபர்கள்</option>
+                                    <option value="4">4 நபர்கள்</option>
+                                    <option value="5+">5+ நபர்கள்</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="rsvp-message">தங்களின் மங்கல வாழ்த்துகள்</label>
+                                <textarea id="rsvp-message" rows="4" placeholder="மணமக்களுக்கான தங்களின் நல்வாழ்த்துகள் மற்றும் கவிதைகளை இங்கு எழுதவும்..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-submit">
+                                <span>வாழ்த்துகளை அனுப்பவும்</span> <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+
+                        <!-- Success Message (Initially Hidden) -->
+                        <div id="rsvp-success" class="rsvp-success-message hidden">
+                            <div class="success-icon"><i class="fa-solid fa-heart"></i></div>
+                            <h3>மிக்க நன்றி!</h3>
+                            <p>தங்களின் அன்பான வாழ்த்துகள் மங்கல தம்பதியரை சென்றடைந்தது. இலக்கியா மற்றும் கௌதம் ராஜ் தங்களின் அன்பிற்கு நெஞ்சார்ந்த நன்றி தெரிவிக்கிறார்கள்.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer details -->
+                <footer class="footer">
+                    <div class="footer-content">
+                        <h2 class="footer-title">E & G</h2>
+                        <p class="footer-poetic">"அன்பால் இணைந்து, பெரியோர் ஆசி பெற்று, தங்களின் வாழ்த்துகளோடு இல்லறம் காண்கிறார்கள்."</p>
+                        <div class="footer-divider"></div>
+                        <p class="footer-copyright">
+                            &copy; 2026. இலக்கியா & கௌதம் ராஜ் திருமண நல்விழா.<br>
+                            <span class="github-info"><i class="fab fa-github"></i> GitHub வழியே வடிவமைக்கப்பட்டு வெளியிடப்பட்டது</span>
+                        </p>
+                    </div>
+                </footer>
+
+            </div>
+        </section>
+        
+    </main>
 
     <!-- JS Scripts -->
     <script src="script.js"></script>
