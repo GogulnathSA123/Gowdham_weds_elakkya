@@ -152,7 +152,7 @@ const coupleAvatar = {
             ctx.font = 'bold 24px Outfit, Inter, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('\u0b87 \u0026 \u0b95', this.x, this.y);
+            ctx.fillText('E & G', this.x, this.y);
         }
         
         ctx.restore(); // restore clip
