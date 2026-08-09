@@ -560,6 +560,36 @@ section {
     letter-spacing: 1px;
 }
 
+.envelope-welcome {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--accent-gold);
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+.welcome-banner {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--accent-gold);
+    margin-top: 2rem;
+    letter-spacing: 2px;
+    position: relative;
+    width: 100%;
+}
+
+.welcome-banner::before, .welcome-banner::after {
+    content: "";
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background-color: var(--border-light);
+    vertical-align: middle;
+    margin: 0 15px;
+}
+
 /* ──── RESPONSIVE ──── */
 @media (max-width: 768px) {
     section {
