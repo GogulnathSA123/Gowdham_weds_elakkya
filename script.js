@@ -13,7 +13,7 @@ let canvas, ctx, canvasWidth, canvasHeight; // Canvas references shared globally
 
 // Dynamic Avatar Object for the Cinematic Journey
 const avatarImg = new Image();
-avatarImg.src = 'assets/images/couple_silhouette.jpg';
+avatarImg.src = 'assets/images/couple.jpg';
 
 const coupleAvatar = {
     x: window.innerWidth / 2,
@@ -1186,7 +1186,7 @@ function initWeddingApp() {
     animateStoryboard();
 
     // --- 3. Countdown Timer ---
-    const weddingDate = new Date('September 13, 2026 09:00:00').getTime();
+    const weddingDate = new Date('September 13, 2026 07:00:00').getTime();
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
