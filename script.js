@@ -1,17 +1,16 @@
 /**
- * script.js - Premium Wedding Invitation Animations & Logic
+ * script.js - Minimalist Wedding Invitation Animations & Logic
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- 1. Envelope Open Logic ---
     const envelopeCover = document.getElementById('envelope-cover');
-    const openEnvelopeBtn = document.getElementById('open-envelope-btn');
-    const waxSealClick = document.getElementById('wax-seal-click');
+    const openBtn = document.getElementById('open-btn');
     const mainContent = document.getElementById('main-content');
     const bgAudio = document.getElementById('bg-audio');
-    const musicFloater = document.getElementById('music-floater');
-    const musicDisc = document.getElementById('music-disc');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = document.getElementById('music-icon');
 
     function openInvitation() {
         if (!envelopeCover.classList.contains('open')) {
@@ -23,8 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (openEnvelopeBtn) openEnvelopeBtn.addEventListener('click', openInvitation);
-    if (waxSealClick) waxSealClick.addEventListener('click', openInvitation);
+    if (openBtn) openBtn.addEventListener('click', openInvitation);
 
     // --- 2. Music Controls ---
     let isPlaying = false;
@@ -33,8 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bgAudio) {
             bgAudio.play().then(() => {
                 isPlaying = true;
-                if (musicFloater) musicFloater.classList.add('playing');
-                document.querySelector('.music-text').textContent = 'Pause';
+                if (musicIcon) {
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                }
             }).catch(err => {
                 console.log("Autoplay blocked by browser. User interaction required.");
             });
@@ -46,19 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isPlaying) {
             bgAudio.pause();
             isPlaying = false;
-            if (musicFloater) musicFloater.classList.remove('playing');
-            document.querySelector('.music-text').textContent = 'Play';
+            if (musicIcon) {
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+            }
         } else {
             bgAudio.play();
             isPlaying = true;
-            if (musicFloater) musicFloater.classList.add('playing');
-            document.querySelector('.music-text').textContent = 'Pause';
+            if (musicIcon) {
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+            }
         }
     }
 
-    if (musicFloater) musicFloater.addEventListener('click', toggleMusic);
+    if (musicBtn) musicBtn.addEventListener('click', toggleMusic);
 
-    // --- 3. Ambient Canvas Animation (Gold Leaf & Petal Shower) ---
+    // --- 3. Ambient Canvas Animation (Subtle Golden Sparkles) ---
     const canvas = document.getElementById('ambient-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -70,58 +74,52 @@ document.addEventListener('DOMContentLoaded', () => {
             height = canvas.height = window.innerHeight;
         });
 
-        // Petal Class
-        class Petal {
+        // Sparkle Class
+        class Sparkle {
             constructor() {
                 this.reset();
             }
 
             reset() {
                 this.x = Math.random() * width;
-                this.y = -20;
-                this.size = Math.random() * 8 + 6;
-                this.speedY = Math.random() * 1.2 + 0.8;
-                this.speedX = Math.random() * 1.5 - 0.75;
-                this.rotation = Math.random() * 360;
-                this.spin = Math.random() * 2 - 1;
-                // Alternate between rose pink and gold leaf colors
-                this.color = Math.random() > 0.5 ? 'rgba(212, 175, 55, 0.45)' : 'rgba(255, 182, 193, 0.55)';
+                this.y = Math.random() * height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.alpha = Math.random() * 0.5 + 0.1;
+                this.speed = Math.random() * 0.005 + 0.002;
+                this.glow = Math.random() > 0.5;
             }
 
             update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                this.rotation += this.spin;
-
-                if (this.y > height + 20 || this.x < -20 || this.x > width + 20) {
-                    this.reset();
+                if (this.glow) {
+                    this.alpha += this.speed;
+                    if (this.alpha >= 0.75) this.glow = false;
+                } else {
+                    this.alpha -= this.speed;
+                    if (this.alpha <= 0.05) this.reset();
                 }
             }
 
             draw() {
                 ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate((this.rotation * Math.PI) / 180);
-                ctx.fillStyle = this.color;
-                
-                // Draw petal/leaf shape
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = '#bfa37c'; // Minimalist gold color
                 ctx.beginPath();
-                ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, 2 * Math.PI);
+                ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
                 ctx.fill();
                 ctx.restore();
             }
         }
 
-        const petals = [];
-        for (let i = 0; i < 45; i++) {
-            petals.push(new Petal());
+        const sparkles = [];
+        for (let i = 0; i < 40; i++) {
+            sparkles.push(new Sparkle());
         }
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            petals.forEach(p => {
-                p.update();
-                p.draw();
+            sparkles.forEach(s => {
+                s.update();
+                s.draw();
             });
             requestAnimationFrame(animate);
         }
@@ -141,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (difference < 0) {
             if (document.getElementById('countdown')) {
-                document.getElementById('countdown').innerHTML = `<div class="wedding-started-msg" style="color: var(--primary-color); font-weight: 600;">திருமணம் இனிதே நிறைவுற்றது! தங்களின் ஆசிகளுக்கு நன்றி.</div>`;
+                document.getElementById('countdown').innerHTML = `<div class="wedding-started-msg" style="color: var(--text-dark); font-weight: 400; font-family: var(--font-heading); font-size: 1.2rem;">திருமணம் இனிதே நிறைவுற்றது! தங்களின் ஆசிகளுக்கு நன்றி.</div>`;
             }
             clearInterval(countdownInterval);
             return;

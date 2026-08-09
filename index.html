@@ -3,209 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="இலக்கியா & கௌதம் ராஜ் திருமண நல்விழா அழைப்பிதழ். இரு இதயங்களின் தெய்வீக சங்கமம்.">
-    <title>Elakkya & Gowdham Raj Wedding Invitation</title>
+    <meta name="description" content="இலக்கியா & கௌதம் ராஜ் திருமண அழைப்பிதழ்.">
+    <title>Elakkya & Gowdham Raj Wedding</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts for Minimal Elegance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&family=Mr+De+Haviland&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Falling Petals/Gold Leaf Canvas -->
+    <!-- Minimal Subtle Sparkle Canvas -->
     <canvas id="ambient-canvas"></canvas>
 
-    <!-- Background Music Floater -->
-    <div class="music-floater" id="music-floater">
-        <div class="music-disc" id="music-disc">
-            <i class="fas fa-music"></i>
-        </div>
-        <span class="music-text">Play Music</span>
+    <!-- Minimal Music Player -->
+    <button class="minimal-music-btn" id="music-btn" aria-label="Toggle Music">
+        <i class="fas fa-play" id="music-icon"></i>
         <audio id="bg-audio" loop preload="auto">
             <source src="../gowdham new /munbe-vaa-bgm-ringtone-sillunu-oru-kadhal-campsty-mafia-download-link-122910981.mp3" type="audio/mpeg">
         </audio>
-    </div>
+    </button>
 
-    <!-- 1. Interactive Royal Envelope Cover -->
-    <div id="envelope-cover" class="envelope-container">
-        <div class="envelope">
-            <div class="envelope-flap"></div>
-            <div class="envelope-body"></div>
-            <div class="envelope-card">
-                <div class="card-monogram">E & G</div>
-                <h1 class="card-main-title">Wedding Invitation</h1>
-                <div class="card-accent-line"></div>
-                <h2 class="card-names">Elakkya & Gowdham Raj</h2>
-                <p class="card-date-preview">September 13, 2026</p>
-                <button id="open-envelope-btn" class="open-btn">
-                    <span>Open Invitation</span> <i class="fa-solid fa-heart"></i>
-                </button>
-            </div>
-            <div class="wax-seal" id="wax-seal-click">
-                <img src="assets/images/lotus.jpg" alt="Wax Seal" class="seal-img">
-            </div>
+    <!-- 1. Minimalist Envelope Cover -->
+    <div id="envelope-cover" class="envelope-overlay">
+        <div class="envelope-card">
+            <span class="envelope-monogram">e & g</span>
+            <div class="envelope-divider"></div>
+            <h1 class="envelope-title">The Wedding Invitation</h1>
+            <p class="envelope-names">Elakkya & Gowdham Raj</p>
+            <p class="envelope-date">13 . 09 . 2026</p>
+            <button id="open-btn" class="envelope-open-btn">Open Invitation</button>
         </div>
     </div>
 
-    <!-- Main Content Wrapper (shown after opening envelope) -->
+    <!-- Main Content -->
     <main id="main-content" class="main-hidden">
         
-        <!-- Header Banner -->
-        <header class="wedding-header">
-            <div class="header-logo">E & G</div>
-            <div class="header-monogram">மங்கலத் திருமண அழைப்பிதழ்</div>
+        <!-- Hero Header -->
+        <header class="navbar">
+            <span class="nav-logo">E & G</span>
+            <span class="nav-date">September 13, 2026</span>
         </header>
 
-        <!-- Lord Murugan Blessing Section -->
+        <!-- Blessings Section -->
         <section class="blessings-section">
-            <div class="divine-card">
-                <div class="divine-frame">
-                    <img src="assets/images/murugan.jpg" alt="Lord Murugan" class="divine-img">
-                </div>
-                <p class="tamil-blessing">
-                    விக்னேஸ்வரன் துணையோடும், முருகப் பெருமான் திருவருளோடும், முதியோர்கள் ஆசியோடும்...
-                </p>
-                <p class="english-blessing">
-                    With the divine grace of Lord Murugan and blessings of our elders, we invite you to celebrate our union.
-                </p>
+            <div class="divine-portrait-frame">
+                <img src="assets/images/murugan.jpg" alt="Lord Murugan" class="divine-portrait">
             </div>
+            <p class="blessing-tamil">விக்னேஸ்வரன் துணையோடும், முருகப் பெருமான் திருவருளோடும், முதியோர்கள் ஆசியோடும்...</p>
+            <p class="blessing-english">With the divine grace of Lord Murugan and blessings of our family, we begin our beautiful journey.</p>
         </section>
 
-        <!-- Couple Portrait Section -->
+        <!-- Couple Feature Section -->
         <section class="couple-section">
-            <h2 class="section-title">The Happy Couple</h2>
-            <div class="title-leaf-divider"></div>
-            <div class="couple-card-container">
-                <div class="couple-frame">
-                    <img src="assets/images/couple.jpg" alt="Elakkya and Gowdham" class="couple-img">
-                </div>
-                <h3 class="couple-names">Elakkya & Gowdham Raj</h3>
-                <p class="couple-love-quote">
-                    "Two hearts bound by love, stepping together into a beautiful forever."
-                </p>
+            <div class="couple-art-frame">
+                <img src="assets/images/couple.jpg" alt="Elakkya and Gowdham" class="couple-photo">
             </div>
+            <h2 class="couple-title-names">Elakkya & Gowdham Raj</h2>
+            <p class="couple-quote">"Two lives, two hearts, joined in friendship, united in love."</p>
         </section>
 
-        <!-- Countdown Timer -->
+        <!-- Countdown Section -->
         <section class="countdown-section">
-            <h3 class="countdown-title">Days until we tie the knot</h3>
-            <div id="countdown" class="countdown-container">
-                <div class="countdown-item">
-                    <span class="number" id="days">00</span>
-                    <span class="label">Days</span>
+            <div id="countdown" class="countdown-grid">
+                <div class="countdown-box">
+                    <span class="time-num" id="days">00</span>
+                    <span class="time-label">days</span>
                 </div>
-                <div class="countdown-item">
-                    <span class="number" id="hours">00</span>
-                    <span class="label">Hours</span>
+                <div class="countdown-box">
+                    <span class="time-num" id="hours">00</span>
+                    <span class="time-label">hours</span>
                 </div>
-                <div class="countdown-item">
-                    <span class="number" id="minutes">00</span>
-                    <span class="label">Minutes</span>
+                <div class="countdown-box">
+                    <span class="time-num" id="minutes">00</span>
+                    <span class="time-label">mins</span>
                 </div>
-                <div class="countdown-item">
-                    <span class="number" id="seconds">00</span>
-                    <span class="label">Seconds</span>
+                <div class="countdown-box">
+                    <span class="time-num" id="seconds">00</span>
+                    <span class="time-label">secs</span>
                 </div>
             </div>
         </section>
 
-        <!-- Event Details Section (Grid Layout) -->
-        <section class="details-section">
-            <h2 class="section-title">Wedding Ceremonies</h2>
-            <div class="title-leaf-divider"></div>
+        <!-- Details Grid Section -->
+        <section class="events-section">
+            <h2 class="section-headline">Wedding Ceremonies</h2>
+            <div class="line-divider"></div>
             
-            <div class="details-grid">
+            <div class="events-grid">
                 <!-- Card 1: Reception -->
-                <div class="details-card">
-                    <div class="card-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
-                    <h3 class="card-headline">Reception</h3>
-                    <p class="card-date"><i class="fa-regular fa-calendar"></i> Saturday, September 12, 2026</p>
-                    <p class="card-time"><i class="fa-regular fa-clock"></i> 6:30 PM Onwards</p>
-                    <div class="card-separator"></div>
-                    <p class="card-detail-text">Join us for a welcoming dinner and celebration as we share our happiness on the eve of our wedding.</p>
+                <div class="event-card">
+                    <span class="card-num">01</span>
+                    <h3 class="card-title">Reception</h3>
+                    <p class="card-meta"><i class="fa-regular fa-calendar-days"></i> Saturday, Sept 12, 2026</p>
+                    <p class="card-meta"><i class="fa-regular fa-clock"></i> 6:30 PM Onwards</p>
+                    <p class="card-desc">Join us for a welcoming dinner and celebration on the eve of our wedding day.</p>
                 </div>
 
                 <!-- Card 2: Muhurtham -->
-                <div class="details-card highlighted-card">
-                    <div class="card-icon"><i class="fa-solid fa-gopuram"></i></div>
-                    <h3 class="card-headline">Auspicious Muhurtham</h3>
-                    <p class="card-date"><i class="fa-regular fa-calendar"></i> Sunday, September 13, 2026</p>
-                    <p class="card-time"><i class="fa-regular fa-clock"></i> 7:00 AM - 9:00 AM</p>
-                    <div class="card-separator"></div>
-                    <p class="card-detail-text">The sacred ceremony of tying the Mangalasutra, uniting our souls in holy matrimony.</p>
+                <div class="event-card featured">
+                    <span class="card-num">02</span>
+                    <h3 class="card-title">Muhurtham</h3>
+                    <p class="card-meta"><i class="fa-regular fa-calendar-days"></i> Sunday, Sept 13, 2026</p>
+                    <p class="card-meta"><i class="fa-regular fa-clock"></i> 7:00 AM - 9:00 AM</p>
+                    <p class="card-desc">The sacred tying of the Mangalasutra (Thali), uniting our souls in holy matrimony.</p>
                 </div>
 
                 <!-- Card 3: Venue -->
-                <div class="details-card">
-                    <div class="card-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                    <h3 class="card-headline">Wedding Venue</h3>
-                    <p class="venue-name">Durgai Amman Wedding Hall</p>
-                    <p class="venue-address">
-                        Ponnamaravathi Main Rd, Natikal,<br>
-                        Ponnamaravathi, Tamil Nadu 622407.
-                    </p>
-                    <div class="card-separator"></div>
-                    <a href="https://maps.app.goo.gl/evxyEJkaJh83VrTN9?g_st=ac" target="_blank" rel="noopener noreferrer" class="maps-btn">
-                        <i class="fa-solid fa-location-arrow"></i> View Map Location
+                <div class="event-card">
+                    <span class="card-num">03</span>
+                    <h3 class="card-title">Venue</h3>
+                    <p class="venue-title">Durgai Amman Wedding Hall</p>
+                    <p class="venue-location">Ponnamaravathi Main Rd, Natikal,<br>Ponnamaravathi, Tamil Nadu 622407</p>
+                    <a href="https://maps.app.goo.gl/evxyEJkaJh83VrTN9?g_st=ac" target="_blank" rel="noopener noreferrer" class="location-link">
+                        View Map Location <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Our Journey Timeline Section -->
-        <section class="timeline-section">
-            <h2 class="section-title">Our Journey</h2>
-            <div class="title-leaf-divider"></div>
+        <!-- Timeline Section -->
+        <section class="journey-section">
+            <h2 class="section-headline">Our Journey</h2>
+            <div class="line-divider"></div>
             
-            <div class="timeline-path">
-                <div class="timeline-marker-line"></div>
+            <div class="minimal-timeline">
+                <div class="timeline-line"></div>
                 
-                <div class="timeline-node left-node">
-                    <div class="node-icon"><i class="fa-solid fa-heart"></i></div>
-                    <div class="node-content">
-                        <h4 class="node-title">First Met</h4>
-                        <span class="node-date">March 2026</span>
-                        <p class="node-desc">Our eyes spoke what words could not, beginning a beautiful chapter.</p>
+                <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <div class="step-content">
+                        <span class="step-date">March 2026</span>
+                        <h4 class="step-title">First Met</h4>
+                        <p class="step-text">Our story began with a quiet smile and an unspoken promise.</p>
                     </div>
                 </div>
 
-                <div class="timeline-node right-node">
-                    <div class="node-icon"><i class="fa-solid fa-ring"></i></div>
-                    <div class="node-content">
-                        <h4 class="node-title">Engagement</h4>
-                        <span class="node-date">May 2026</span>
-                        <p class="node-desc">With blessings of our family, we promised our lives to one another.</p>
+                <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <div class="step-content">
+                        <span class="step-date">May 2026</span>
+                        <h4 class="step-title">Engagement</h4>
+                        <p class="step-text">With the blessings of our families, we promised our lives to each other.</p>
                     </div>
                 </div>
 
-                <div class="timeline-node left-node">
-                    <div class="node-icon"><i class="fa-solid fa-church"></i></div>
-                    <div class="node-content">
-                        <h4 class="node-title">The Wedding</h4>
-                        <span class="node-date">September 2026</span>
-                        <p class="node-desc">Stepping into our forever with all of your warm wishes and blessings.</p>
+                <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <div class="step-content">
+                        <span class="step-date">September 2026</span>
+                        <h4 class="step-title">The Wedding</h4>
+                        <p class="step-text">Stepping into a lifetime of love, laughter, and new beginnings.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Elegant Footer -->
+        <!-- Footer -->
         <footer class="wedding-footer">
-            <h3 class="footer-initials">E & G</h3>
-            <p class="footer-blessing">"Thank you for being part of our beautiful beginning."</p>
-            <div class="footer-line"></div>
-            <p class="footer-credits">&copy; 2026 Elakkya & Gowdham Raj's Wedding. All Rights Reserved.</p>
+            <span class="footer-monogram">e & g</span>
+            <p class="footer-message">"Forever is a beautiful place to start."</p>
+            <div class="footer-divider"></div>
+            <p class="footer-copy">&copy; 2026 Elakkya & Gowdham Raj's Wedding. All Rights Reserved.</p>
         </footer>
 
     </main>
 
-    <!-- JavaScript Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
