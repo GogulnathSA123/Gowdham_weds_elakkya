@@ -133,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (coupleFrame) {
                     const rect = coupleFrame.getBoundingClientRect();
                     // Spawn from the center area of the couple portrait
-                    this.x = rect.left + rect.width / 2 + (Math.random() * 80 - 40);
-                    this.y = rect.top + rect.height / 2 + (Math.random() * 80 - 40);
+                    this.x = rect.left + rect.width / 2 + (Math.random() * 40 - 20);
+                    this.y = rect.top + rect.height / 2 + (Math.random() * 40 - 20);
                 } else {
                     this.x = Math.random() * width;
                     this.y = height / 2;
@@ -142,8 +142,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Make them "huge" (size 18px to 30px)
                 this.size = Math.random() * 12 + 18; 
-                this.speedX = Math.random() * 3 - 1.5; // wider drift range
-                this.speedY = -(Math.random() * 1.5 + 1.2); // steady upward flight
+                
+                // Fly out in all directions (360 degrees radial spread)
+                const moveAngle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 1.8 + 1.2;
+                this.speedX = Math.cos(moveAngle) * speed;
+                this.speedY = Math.sin(moveAngle) * speed;
+                
                 this.wingPhase = Math.random() * Math.PI * 2;
                 this.flapSpeed = Math.random() * 0.15 + 0.1;
                 this.colorType = Math.random() > 0.5 ? 'blue' : 'red';
@@ -151,18 +156,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Richer colors so the large butterflies look gorgeous
                 this.color = this.colorType === 'blue' ? 'rgba(30, 144, 255, 0.85)' : 'rgba(220, 20, 60, 0.85)';
                 this.wingColor = this.colorType === 'blue' ? 'rgba(135, 206, 250, 0.45)' : 'rgba(255, 182, 193, 0.45)';
-                this.angle = Math.random() * 0.4 - 0.2;
+                
+                // Align rotation angle to face the direction of flight
+                this.angle = Math.atan2(this.speedY, this.speedX) + Math.PI / 2;
             }
 
             update() {
-                // Accelerate flapping and upward drift when page scrolls
+                // Accelerate flapping and flight speed when page scrolls
                 const boost = Math.min(scrollDelta * 0.1, 5);
-                this.y += this.speedY - (boost * 0.8);
-                this.x += this.speedX + Math.sin(this.y * 0.02) * 0.4;
-                this.wingPhase += this.flapSpeed + (boost * 0.1);
+                
+                // Apply radial boost outward
+                const currentSpeedX = this.speedX + (Math.sign(this.speedX) * boost * 0.4);
+                const currentSpeedY = this.speedY + (Math.sign(this.speedY) * boost * 0.4);
+                
+                this.y += currentSpeedY;
+                this.x += currentSpeedX;
+                this.wingPhase += this.flapSpeed + (boost * 0.15);
 
-                // Reset back to the couple card if they exit the viewport boundaries
-                if (this.y < -50 || this.x < -50 || this.x > width + 50) {
+                // Reset back to the couple card if they exit any boundary of the viewport
+                if (this.y < -50 || this.y > height + 50 || this.x < -50 || this.x > width + 50) {
                     this.reset();
                 }
             }
